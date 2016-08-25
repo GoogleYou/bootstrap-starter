@@ -14,6 +14,7 @@ DB.ready(function () {
 DB.ready(function () {
     $('#234').click(function () {
         $("#123").hide(5000);
+        $("#345").hide(5000);
     })
 });
 /// hi
