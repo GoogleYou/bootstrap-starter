@@ -1,4 +1,4 @@
-var app = 'toodle';
+var app = 'hallo';
 DB.connect(app);
 
 DB.ready(function() {
