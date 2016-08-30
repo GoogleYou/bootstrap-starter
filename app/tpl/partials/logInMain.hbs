@@ -11,15 +11,15 @@
                     <h3 class="panel-title">Log In</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form role="form" id="loginForm">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="" required="required" maxlength="30">
+                                <input class="form-control" placeholder="E-mail" id="usernameField" name="email" type="email" autofocus="" required="required" maxlength="30">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password"
+                                <input class="form-control" placeholder="Password" id="passField" name="password" type="password"
                                        value="" required="required" maxlength="16" >
-                                <p>must contain 8-16 character</p>
+                                <p class="infoPassword">must contain 8-16 character</p>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <a href="javascript:;" class="btn btn-sm btn-default">Login</a>
