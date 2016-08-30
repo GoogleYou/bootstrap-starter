@@ -1,6 +1,7 @@
 /**
  * Created by Veronika on 29.08.16.
  */
+
 $(document).ready(function(){
 
     $("#loginForm").submit(function(e){
@@ -31,6 +32,10 @@ $(document).ready(function(){
         {
             registerUser(pass, fName, lName, address, zip, city, country, email);
         }
+        else
+        {
+            alert("Confirm password does not match.");
+        }
     });
 
 });
@@ -39,7 +44,7 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
 
     var user = new DB.User({
         firstName: firstName,
-        lastName : lastName,
+        lastName: lastName,
         address: address,
         zipCode: zipCode,
         city: city,
