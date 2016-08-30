@@ -22,7 +22,7 @@
                                 <input class="form-control" id="adrsField" placeholder="Address" name="address" type="text" value="" maxlength="200" required="required">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="zipField" placeholder="ZIP" name="zip" type="text" value="" maxlength="6" required="required">
+                                <input class="form-control" id="zipField" placeholder="ZIP" name="zip" type="text" value="" maxlength="6" required="required" pattern="[0-9]{5,6}$">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="cityField" placeholder="City" name="city" type="text" value="" required="required" maxlength="30">
@@ -33,11 +33,11 @@
                             <div class="bottom">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="emailField" placeholder="E-mail" name="email" type="email" autofocus="" required="required" maxlength="30">
+                                <input class="form-control" id="emailField" placeholder="E-mail" name="email" type="email" autofocus="" required="required" maxlength="30" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="passField" placeholder="Password" name="password" type="password" value="" required="required" minlength="6" maxlength="16">
-                            <p class="infoPassword"> must contain 8-16 character</p>
+                            <p class="infoPassword"> must contain 6-16 character</p>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" id="confPassField" placeholder="Confirm password" name="confpassword" type="password" value="" required="required" minlength="6" maxlength="16">
