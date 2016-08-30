@@ -13,33 +13,34 @@
                     <form role="form" id="signUpForm">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" id="fNameField" placeholder="Firstname" name="firstname" type="text" value="">
+                                <input class="form-control" id="fNameField" placeholder="Firstname" name="firstname" type="text" value="" required="required" maxlength="20">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="lNameField" placeholder="Lastname" name="lastname" type="text" value="">
+                                <input class="form-control" id="lNameField" placeholder="Lastname" name="lastname" type="text" value="" required="required" maxlength="20">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="adrsField" placeholder="Address" name="address" type="text" value="">
+                                <input class="form-control" id="adrsField" placeholder="Address" name="address" type="text" value="" maxlength="200" required="required">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="zipField" placeholder="ZIP" name="zip" type="text" value="">
+                                <input class="form-control" id="zipField" placeholder="ZIP" name="zip" type="text" value="" maxlength="6" required="required">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="cityField" placeholder="City" name="city" type="text" value="">
+                                <input class="form-control" id="cityField" placeholder="City" name="city" type="text" value="" required="required" maxlength="30">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="countryField" placeholder="Country" name="country" type="text" value="">
+                                <input class="form-control" id="countryField" placeholder="Country" name="country" type="text" value="" maxlength="30" required="required">
                             </div>
                             <div class="bottom">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="emailField" placeholder="E-mail" name="email" type="email" autofocus="">
+                                <input class="form-control" id="emailField" placeholder="E-mail" name="email" type="email" autofocus="" required="required" maxlength="30">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="passField" placeholder="Password" name="password" type="password" value="">
+                                <input class="form-control" id="passField" placeholder="Password" name="password" type="password" value="" required="required" minlength="6" maxlength="16">
+                            <p class="infoPassword"> must contain 8-16 character</p>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" id="confPassField" placeholder="Confirm password" name="confpassword" type="password" value="">
+                                <input class="form-control" id="confPassField" placeholder="Confirm password" name="confpassword" type="password" value="" required="required" minlength="6" maxlength="16">
                             </div>
 
                             <!-- Change this to a button or input when using this as a form -->
