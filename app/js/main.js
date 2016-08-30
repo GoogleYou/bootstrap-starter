@@ -1,6 +1,6 @@
 var app = 'hallo';
-DB.connect(app).then()
-{
+DB.connect(app).then(function(){
+    console.log("connected");
     function setCategory(name, limit, id) {
         var category = new DB.Category;
         category.name = name;
@@ -34,6 +34,4 @@ DB.connect(app).then()
         design.comment = comment;
         design.save();
     }
-
-
-};
+});
