@@ -7,10 +7,10 @@ $(document).ready(function(){
 
         e.preventDefault();
 
-        var name = $("#usernameField").val();
+        var email = $("#usernameField").val();
         var pass = $("#passField").val();
 
-        loginUser(name, pass);
+        loginUser(email, pass);
     });
 
     $("#signUpForm").submit(function(e){
@@ -21,6 +21,7 @@ $(document).ready(function(){
         var lName = $("#lNameField").val();
         var address = $("#adrsField").val();
         var city = $("#cityField").val();
+        var country = $("#countryField").val();
         var zip = $("#zipField").val();
         var email = $("#emailField").val();
         var pass = $("#passField").val();
@@ -28,13 +29,13 @@ $(document).ready(function(){
 
         if(pass === passConfirm)
         {
-            registerUser(fName, lName, address, zip, city, "lala", email);
+            registerUser(pass, fName, lName, address, zip, city, country, email);
         }
     });
 
 });
 
-function registerUser(firstName, lastName, address, zipCode, city, country, email){
+function registerUser(pass, firstName, lastName, address, zipCode, city, country, email){
 
     var user = new DB.User({
         firstName: firstName,
@@ -46,16 +47,18 @@ function registerUser(firstName, lastName, address, zipCode, city, country, emai
         email: email
     });
 
-    DB.User.register().then(function(){
+    console.log(user);
+
+    DB.User.register(user, pass).then(function(){
         console.log(DB.User.me === user);
     });
 
 }
 
-function loginUser(name, pass){
+function loginUser(email, pass){
 
-    console.log(name);
+    console.log(email);
     console.log(pass);
 
-    DB.User.login(name, pass);
+    DB.User.login(email, pass);
 }
