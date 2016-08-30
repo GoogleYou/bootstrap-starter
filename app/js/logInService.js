@@ -13,9 +13,42 @@ $(document).ready(function(){
         loginUser(name, pass);
     });
 
+    $("#signUpForm").submit(function(e){
+
+        e.preventDefault();
+
+        var fName = $("#fNameField").val();
+        var lName = $("#lNameField").val();
+        var address = $("#adrsField").val();
+        var city = $("#cityField").val();
+        var zip = $("#zipField").val();
+        var email = $("#emailField").val();
+        var pass = $("#passField").val();
+        var passConfirm = $("#confPassField").val();
+
+        if(pass === passConfirm)
+        {
+            registerUser(fName, lName, address, zip, city, "lala", email);
+        }
+    });
+
 });
 
-function registerUser(firstName, lastName, email, street, zipCode, city, country){
+function registerUser(firstName, lastName, address, zipCode, city, country, email){
+
+    var user = new DB.User({
+        firstName: firstName,
+        lastName : lastName,
+        address: address,
+        zipCode: zipCode,
+        city: city,
+        country: country,
+        email: email
+    });
+
+    DB.User.register().then(function(){
+        console.log(DB.User.me === user);
+    });
 
 }
 
