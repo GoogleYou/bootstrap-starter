@@ -34,9 +34,11 @@ $(document).ready(function(){
         }
         else
         {
-            alert("Confirm password does not match.");
+            alert("Password does not match.");
         }
     });
+
+
 
 });
 
