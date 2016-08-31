@@ -34,4 +34,5 @@ DB.connect(app).then(function(){
         design.comment = comment;
         design.save();
     }
+    isLoggedIn();
 });
