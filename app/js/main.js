@@ -22,7 +22,8 @@ DB.connect(app, true).then(function(){
         competition.save();
     }
 
-    function setDesign(id, designer, color, galery, material, information, voteCounter, competitionId, category, comment) {
+    function setDesign(id, designer, color, galery, material, information, voteCounter, competitionId, category,
+        comment) {
         var design = new DB.Design;
         design.idDesign = id;
         design.designer = designer;
@@ -36,5 +37,6 @@ DB.connect(app, true).then(function(){
         design.comment = comment;
         design.save();
     }
+
     isLoggedIn();
 });
