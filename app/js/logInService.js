@@ -38,7 +38,11 @@ $(document).ready(function(){
         }
     });
 
-
+    $("#facebookBtn").click(function() {
+        DB.User.loginWithFacebook("1738196716420350").then(function(user){
+            console.log(DB.User.me == user);
+        });
+    });
 
 });
 
