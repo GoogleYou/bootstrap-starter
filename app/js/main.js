@@ -1,6 +1,12 @@
 var app = 'hallo';
-DB.connect(app).then(function () {
-    console.log("connected");
+DB.connect(app).then()
+    {
+
+        function logConnected (){
+            console.log("connected");
+}
+logConnected();
+
     function setCategory(name, limit, id) {
         var category = new DB.Category;
         category.name = name;
@@ -20,8 +26,7 @@ DB.connect(app).then(function () {
         competition.save();
     }
 
-    function setDesign(id, designer, color, galery, material, information, voteCounter, competitionId, category,
-        comment) {
+    function setDesign(id, designer, color, galery, material, information, voteCounter, competitionId, category, comment) {
         var design = new DB.Design;
         design.idDesign = id;
         design.designer = designer;
@@ -36,5 +41,13 @@ DB.connect(app).then(function () {
         design.save();
     }
 
+    function test(){
+        var pic = DB.File('/file/www/images/Pic01.jpg');
+        var pic2 = DB.File('/file/www/images/Pic2.jpg');
+        var pic3 = DB.File('/file/www/images/Pic3.jpg');
+        var pic4 = DB.File('/file/www/images/Pic4.jpg');
+        setDesign(123,"feli-castrian@msn.com","red or blue", [pic,pic2,pic3,pic4] , "Baumwolle", "schöner Schnitt", 0, 55555, "shirts", "ich bin ein Kommentar");
+    }
+
     isLoggedIn();
-});
+};
