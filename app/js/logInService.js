@@ -70,15 +70,13 @@ function loginUser(email, pass) {
 function isLoggedIn() {
         if (DB.User.me !== null) {
             var username = DB.User.me.username;
-            var hrefstart = "../";
-
-            var sd = <a href="../userAnsicht.html"></a>
-                    va
+            var hrefTag = "<a id='userHref' href='#'>"+ username +"</a>";
+            var userLink = "../"+ username + ".html";
 
             $("#signup_header").hide();
             $("#login_header").hide();
-            $("#username_header").text(username);
-            console.log(result);
+            $("#username_header").html(hrefTag);
+            $("#userHref").attr({'href':userLink});
 
         }
 }
