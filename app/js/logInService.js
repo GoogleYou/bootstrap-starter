@@ -2,9 +2,9 @@
  * Created by Veronika on 29.08.16.
  */
 
-$(document).ready(function () {
+$(document).ready(function(){
 
-    $("#loginForm").submit(function (e) {
+    $("#loginForm").submit(function(e){
 
         e.preventDefault();
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
         var pass = $("#passField").val();
         var passConfirm = $("#confPassField").val();
 
-        if (pass === passConfirm)
+        if(pass === passConfirm)
         {
             registerUser(pass, fName, lName, address, zip, city, country, email);
         }
