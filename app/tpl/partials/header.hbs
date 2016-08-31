@@ -13,6 +13,9 @@
 
     <!-- build:css css/app.css -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- execute function after every HTML is loaded to ensure, that the Header knows if a user is Registered -->
+
     <!-- endbuild -->
 </head>
 <!-- NAVBAR
@@ -25,8 +28,9 @@
             <a class="navbar-brand" href="../index.html">PTTP</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="../logIn.html">LOG IN</a></li>
-            <li><a href="../signUp.html">SIGN UP</a></li>
+            <li id="login_header"><a href="../logIn.html">LOG IN</a></li>
+            <li id="signup_header"><a href="../signUp.html">SIGN UP</a></li>
+            <li id="username_header"><a href="../userAnsicht.html"></a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-align-center"></span></a>
                     <span class="caret"></span>

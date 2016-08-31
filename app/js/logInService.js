@@ -14,7 +14,7 @@ $(document).ready(function(){
         loginUser(email, pass);
     });
 
-    $("#signUpForm").submit(function(e){
+    $("#signUpForm").submit(function (e) {
 
         e.preventDefault();
 
@@ -37,12 +37,9 @@ $(document).ready(function(){
             alert("Password does not match.");
         }
     });
-
-
-
 });
 
-function registerUser(pass, firstName, lastName, address, zipCode, city, country, email){
+function registerUser(pass, firstName, lastName, address, zipCode, city, country, email) {
 
     var user = new DB.User({
         firstName: firstName,
@@ -56,16 +53,32 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
 
     console.log(user);
 
-    DB.User.register(user, pass).then(function(){
+    DB.User.register(user, pass).then(function () {
         console.log(DB.User.me.username === user.username);
     });
 
 }
 
-function loginUser(email, pass){
+function loginUser(email, pass) {
 
     console.log(email);
     console.log(pass);
 
     DB.User.login(email, pass);
+}
+
+function isLoggedIn() {
+        if (DB.User.me !== null) {
+            var username = DB.User.me.username;
+            var hrefstart = "../";
+
+            var sd = <a href="../userAnsicht.html"></a>
+                    va
+
+            $("#signup_header").hide();
+            $("#login_header").hide();
+            $("#username_header").text(username);
+            console.log(result);
+
+        }
 }
