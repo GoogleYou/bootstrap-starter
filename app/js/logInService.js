@@ -46,9 +46,12 @@ $(document).ready(function(){
 
     $("#logOut").click(function () {
         console.log(DB.User.me.username);
-        if (DB.User.me !== null) {
-            DB.User.logout();
-            window.location.replace("index.html");
+        if (DB.User.me !== null)
+        {
+            DB.User.logout().then(function(){
+                window.location.replace("index.html");
+            });
+
         }
     });
 
