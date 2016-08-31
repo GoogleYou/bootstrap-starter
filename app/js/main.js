@@ -1,6 +1,8 @@
 var app = 'hallo';
-DB.connect(app).then(function(){
+DB.connect(app, true).then(function(){
+
     console.log("connected");
+
     function setCategory(name, limit, id) {
         var category = new DB.Category;
         category.name = name;
