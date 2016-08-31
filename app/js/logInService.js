@@ -45,13 +45,11 @@ $(document).ready(function () {
     });
 
     $("#logOut").click(function () {
-        console.log(DB.User.me.username);
         if (DB.User.me !== null)
         {
             DB.User.logout().then(function () {
                 window.location.replace("index.html");
             });
-
         }
     });
 
@@ -69,8 +67,6 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
         username: email
     });
 
-    console.log(user);
-
     DB.User.register(user, pass).then(function () {
         console.log(DB.User.me.username === user.username);
         window.location.replace("index.html");
@@ -79,9 +75,6 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
 }
 
 function loginUser(email, pass) {
-
-    console.log(email);
-    console.log(pass);
 
     DB.User.login(email, pass).then(function () {
         window.location.replace("index.html");
@@ -100,8 +93,7 @@ function isLoggedIn() {
         $("#username_header").html(hrefTag);
         $("#userHref").attr({'href': userLink});
     }
-
-    if (DB.User.me === null)
+    else
     {
         $("#logOut").hide();
     }
