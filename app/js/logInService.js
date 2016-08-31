@@ -14,7 +14,7 @@ $(document).ready(function(){
         loginUser(email, pass);
     });
 
-    $("#signUpForm").submit(function(e){
+    $("#signUpForm").submit(function (e) {
 
         e.preventDefault();
 
@@ -44,9 +44,17 @@ $(document).ready(function(){
         });
     });
 
+    $("#logOut").click(function () {
+        console.log(DB.User.me.username);
+        if (DB.User.me !== null) {
+            DB.User.logout();
+            window.location.replace("index.html");
+        }
+    });
+
 });
 
-function registerUser(pass, firstName, lastName, address, zipCode, city, country, email){
+function registerUser(pass, firstName, lastName, address, zipCode, city, country, email) {
 
     var user = new DB.User({
         firstName: firstName,
@@ -60,30 +68,33 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
 
     console.log(user);
 
-    DB.User.register(user, pass).then(function(){
+    DB.User.register(user, pass).then(function () {
         console.log(DB.User.me.username === user.username);
+        window.location.replace("index.html");
     });
 
 }
 
-function loginUser(email, pass){
+function loginUser(email, pass) {
 
     console.log(email);
     console.log(pass);
 
-    DB.User.login(email, pass);
+    DB.User.login(email, pass).then(function () {
+        window.location.replace("index.html");
+    })
 }
 
 function isLoggedIn() {
-        if (DB.User.me !== null) {
-            var username = DB.User.me.username;
-            var hrefTag = "<a id='userHref' href='#'>"+ username +"</a>";
-            var userLink = "../"+ username + ".html";
+    if (DB.User.me !== null) {
+        var username = DB.User.me.username;
+        var hrefTag = "<a id='userHref' href='#'>" + username + "</a>";
+        var userLink = "../" + username + ".html";
 
-            $("#signup_header").hide();
-            $("#login_header").hide();
-            $("#username_header").html(hrefTag);
-            $("#userHref").attr({'href':userLink});
+        $("#signup_header").hide();
+        $("#login_header").hide();
+        $("#username_header").html(hrefTag);
+        $("#userHref").attr({'href': userLink});
 
         }
 }
