@@ -2,9 +2,9 @@
  * Created by Veronika on 29.08.16.
  */
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("#loginForm").submit(function(e){
+    $("#loginForm").submit(function (e) {
 
         e.preventDefault();
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
         var pass = $("#passField").val();
         var passConfirm = $("#confPassField").val();
 
-        if(pass === passConfirm)
+        if (pass === passConfirm)
         {
             registerUser(pass, fName, lName, address, zip, city, country, email);
         }
@@ -38,8 +38,8 @@ $(document).ready(function(){
         }
     });
 
-    $("#facebookBtn").click(function() {
-        DB.User.loginWithFacebook("1738196716420350").then(function(user){
+    $("#facebookBtn").click(function () {
+        DB.User.loginWithFacebook("1738196716420350").then(function (user) {
             console.log(DB.User.me == user);
         });
     });
@@ -48,7 +48,7 @@ $(document).ready(function(){
         console.log(DB.User.me.username);
         if (DB.User.me !== null)
         {
-            DB.User.logout().then(function(){
+            DB.User.logout().then(function () {
                 window.location.replace("index.html");
             });
 
@@ -89,7 +89,8 @@ function loginUser(email, pass) {
 }
 
 function isLoggedIn() {
-    if (DB.User.me !== null) {
+    if (DB.User.me !== null)
+    {
         var username = DB.User.me.username;
         var hrefTag = "<a id='userHref' href='#'>" + username + "</a>";
         var userLink = "../" + username + ".html";
@@ -98,6 +99,10 @@ function isLoggedIn() {
         $("#login_header").hide();
         $("#username_header").html(hrefTag);
         $("#userHref").attr({'href': userLink});
+    }
 
-        }
+    if (DB.User.me === null)
+    {
+        $("#logOut").hide();
+    }
 }
