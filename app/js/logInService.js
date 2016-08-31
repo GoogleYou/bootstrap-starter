@@ -49,13 +49,13 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
         zipCode: zipCode,
         city: city,
         country: country,
-        email: email
+        username: email
     });
 
     console.log(user);
 
     DB.User.register(user, pass).then(function(){
-        console.log(DB.User.me === user);
+        console.log(DB.User.me.username === user.username);
     });
 
 }
