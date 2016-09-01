@@ -2,18 +2,27 @@
  * Created by Frank on 31.08.16.
  */
 
-var elements = new Array ();
+DB.ready(function() {
+    findDesigns();
 
-DB.Design.find().resultList(function(result)
-{
-    var n = 1;
-    result.forEach(function(design)
-    {
-        elements[n](design.idDesign);
-        n++;
-    });
 });
 
-function getElement(index){
-    console.log(elements[index])
+var elements = new Array();
+
+function getElement(index) {
+    console.log(elements[index].id)
 }
+
+function findDesigns(cat) {
+    DB.Design.find().resultList(function(result)
+    {
+        result.forEach(function(design) {
+            if (design.category === cat){
+                elements.push(design);
+            }
+
+        });
+    })
+}
+
+
