@@ -1,5 +1,5 @@
 var app = 'hallo';
-DB.connect(app, true).then(function(){
+DB.connect(app, true).then(function() {
 
     console.log("connected");
 
