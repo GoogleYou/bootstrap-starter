@@ -2,10 +2,8 @@
  * Created by Frank on 31.08.16.
  */
 
-DB.ready(function() {
-    findDesigns();
-
-});
+//DB.ready(function() {
+//});
 
 var elements = new Array();
 
@@ -25,4 +23,15 @@ function findDesigns(cat) {
     })
 }
 
-
+$("#Shirtsbtn").click(function () {
+        findDesigns("Shirts");
+});
+$("#Pulloverbtn").click(function () {
+    findDesigns("Pullover");
+});
+$("#Jacketsbtn").click(function () {
+    findDesigns("Jackets");
+});
+$("#Specialsbtn").click(function () {
+    findDesigns("Specials");
+});
