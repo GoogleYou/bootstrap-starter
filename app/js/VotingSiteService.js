@@ -2,14 +2,15 @@
  * Created by Frank on 31.08.16.
  */
 
-//hshshshshshshsh
 //DB.ready(function() {
+
 //});
 
 var elements = new Array();
 
+
 function getElement(index) {
-    console.log(elements[index].id)
+    console.log(elements[index].category)
 }
 
 function findDesigns(cat) {
@@ -25,15 +26,27 @@ function findDesigns(cat) {
 }
 
 $("#Shirtsbtn").click(function () {
-        findDesigns("Shirts");
+    elements = [];
+    findDesigns("Shirts");
 });
 $("#Pulloverbtn").click(function () {
+    elements = [];
     findDesigns("Pullover");
 });
 $("#Jacketsbtn").click(function () {
+    elements = [];
     findDesigns("Jackets");
 });
 $("#Specialsbtn").click(function () {
+    elements = [];
     findDesigns("Specials");
 });
+$("#PTTP").click(function () {
+    $("#NameCompetition").text("PTTP");
+});
+
+$("#Testbtn").click(function () {
+    $("#NameCompetition").text("PTTP");
+});
+
 
