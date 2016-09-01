@@ -2,6 +2,7 @@
  * Created by Frank on 31.08.16.
  */
 
+//hshshshshshshsh
 //DB.ready(function() {
 //});
 
@@ -35,3 +36,4 @@ $("#Jacketsbtn").click(function () {
 $("#Specialsbtn").click(function () {
     findDesigns("Specials");
 });
+

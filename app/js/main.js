@@ -1,3 +1,4 @@
+//hallololololl
 var app = 'hallo';
 DB.connect(app, true).then(function()
     {
@@ -45,4 +46,3 @@ function test(){
     var pic4 = DB.File('/file/www/images/Pic4.jpg');
     setDesign(123,"feli-castrian@msn.com","red or blue", [pic,pic2,pic3,pic4] , "Baumwolle", "schöner Schnitt", 0, 55555, "shirts", "ich bin ein Kommentar");
 }
-
