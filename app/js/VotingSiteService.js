@@ -36,4 +36,8 @@ $("#Jacketsbtn").click(function () {
 $("#Specialsbtn").click(function () {
     findDesigns("Specials");
 });
+$("#Votebtn").click(function (){
+
+                    }
+)
 
