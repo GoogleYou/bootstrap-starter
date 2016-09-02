@@ -2,21 +2,20 @@
  * Created by Frank on 31.08.16.
  */
 
-//hshshshshshshsh
-//DB.ready(function() {
-//});
+    //hshshshshshshsh
+    //DB.ready(function() {
+    //});
 
 var elements = new Array();
-
 function getElement(index) {
     console.log(elements[index].id)
 }
 
 function findDesigns(cat) {
-    DB.Design.find().resultList(function(result)
-    {
-        result.forEach(function(design) {
-            if (design.category === cat){
+    DB.Design.find().resultList(function (result) {
+        result.forEach(function (design) {
+            if (design.category === cat)
+            {
                 elements.push(design);
             }
 
@@ -25,7 +24,7 @@ function findDesigns(cat) {
 }
 
 $("#Shirtsbtn").click(function () {
-        findDesigns("Shirts");
+    findDesigns("Shirts");
 });
 $("#Pulloverbtn").click(function () {
     findDesigns("Pullover");
@@ -36,8 +35,7 @@ $("#Jacketsbtn").click(function () {
 $("#Specialsbtn").click(function () {
     findDesigns("Specials");
 });
-$("#Votebtn").click(function (){
-
+$("#Votebtn").click(function () {
                     }
 )
 
