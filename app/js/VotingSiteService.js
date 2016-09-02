@@ -37,5 +37,5 @@ $("#Specialsbtn").click(function () {
 });
 $("#Votebtn").click(function () {
                     }
-)
+);
 
