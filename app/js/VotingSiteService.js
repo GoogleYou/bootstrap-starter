@@ -2,20 +2,18 @@
  * Created by Frank on 31.08.16.
  */
 
-    //hshshshshshshsh
-    //DB.ready(function() {
-    //});
 
 var elements = new Array();
+
 function getElement(index) {
     console.log(elements[index].id)
 }
 
 function findDesigns(cat) {
-    DB.Design.find().resultList(function (result) {
-        result.forEach(function (design) {
-            if (design.category === cat)
-            {
+    DB.Design.find().resultList(function(result)
+    {
+        result.forEach(function(design) {
+            if (design.category === cat){
                 elements.push(design);
             }
 
@@ -24,15 +22,19 @@ function findDesigns(cat) {
 }
 
 $("#Shirtsbtn").click(function () {
+    elements = [];
     findDesigns("Shirts");
 });
 $("#Pulloverbtn").click(function () {
+    elements = [];
     findDesigns("Pullover");
 });
 $("#Jacketsbtn").click(function () {
+    elements = [];
     findDesigns("Jackets");
 });
 $("#Specialsbtn").click(function () {
+    elements = [];
     findDesigns("Specials");
 });
 $("#Votebtn").click(function () {

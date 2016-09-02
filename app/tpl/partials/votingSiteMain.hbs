@@ -1,5 +1,14 @@
 <div class="jumbotron">
-    <h1>PTTP COMPETITION</h1>
+    <div id="result"></div>
+    <script>
+        // Check browser support
+        if (typeof(Storage) !== "undefined") {
+            // Retrieve
+            document.getElementById("result").innerHTML = localStorage.getItem("competitionName");
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+        }
+    </script>
     <div class="container" id="containerheart">
         <span class="glyphicon glyphicon-heart">0/10</span>
         <span class="glyphicon glyphicon-hourglass">05.09.2016</span>
