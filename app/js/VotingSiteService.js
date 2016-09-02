@@ -2,9 +2,6 @@
  * Created by Frank on 31.08.16.
  */
 
-//hshshshshshshsh
-//DB.ready(function() {
-//});
 
 var elements = new Array();
 
@@ -40,8 +37,7 @@ $("#Specialsbtn").click(function () {
     elements = [];
     findDesigns("Specials");
 });
-$("#Votebtn").click(function (){
-
+$("#Votebtn").click(function () {
                     }
 )
 
