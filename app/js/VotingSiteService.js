@@ -2,15 +2,14 @@
  * Created by Frank on 31.08.16.
  */
 
+//hshshshshshshsh
 //DB.ready(function() {
-
 //});
 
 var elements = new Array();
 
-
 function getElement(index) {
-    console.log(elements[index].category)
+    console.log(elements[index].id)
 }
 
 function findDesigns(cat) {
@@ -41,12 +40,8 @@ $("#Specialsbtn").click(function () {
     elements = [];
     findDesigns("Specials");
 });
-$("#PTTP").click(function () {
-    $("#NameCompetition").text("PTTP");
-});
+$("#Votebtn").click(function (){
 
-$("#Testbtn").click(function () {
-    $("#NameCompetition").text("PTTP");
-});
-
+                    }
+)
 
