@@ -2,9 +2,9 @@
  * Created by Veronika on 29.08.16.
  */
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("#loginForm").submit(function(e){
+    $("#loginForm").submit(function (e) {
 
         e.preventDefault();
 
@@ -28,7 +28,7 @@ $(document).ready(function(){
         var pass = $("#passField").val();
         var passConfirm = $("#confPassField").val();
 
-        if(pass === passConfirm)
+        if (pass === passConfirm)
         {
             registerUser(pass, fName, lName, address, zip, city, country, email);
         }
@@ -76,10 +76,12 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
 }
 
 function loginUser(email, pass) {
-
-    DB.User.login(email, pass).then(function () {
+    DB.User.login(email, pass).then(function (user) {
         window.location.replace("index.html");
-    })
+    }).catch(function (error) {
+        console.log("error");
+        $("#errorLogIn").text("Your Username or Password was incorrect!");
+    });
 }
 
 function isLoggedIn() {
