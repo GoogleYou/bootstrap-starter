@@ -1,17 +1,17 @@
-<div class="container detail-container">
-    <!-- Slider -->
+<div class="container" id="detail-container">
+
     <div id="detail-view">
 
+        <!-- Foto grid -->
         <div class="inner-detail">
 
             <div id="slider-thumbs">
-                <!-- Bottom switcher of slider -->
                 <div class="row" id="img-row-1">
                     <a class="img-responsive" id="image-selector-1">
                         <img src="https://mosaic01.ztat.net/nvg/media/large/PO/22/2F/00/F5/01/PO222F00F-501@20.jpg">
                     </a>
                 </div>
-                <div class=" row" id="img-row-2">
+                <div class="row" id="img-row-2">
                     <a class="img-responsive" id="image-selector-2">
                         <img src="https://mosaic01.ztat.net/nvg/media/large/PO/22/2F/00/F5/01/PO222F00F-501@15.jpg">
                     </a>
@@ -28,10 +28,25 @@
                 <div id="foto-id">
                     <img src="https://mosaic02.ztat.net/nvg/media/large/PO/22/2F/00/F5/01/PO222F00F-501@18.jpg">
                 </div>
+                <div>
+                    <span class="glyphicon glyphicon-heart" id="vote-heart"></span>
+                </div>
             </div>
 
             <span class="stretch"></span>
 
+        </div>
+
+        <!-- Description -->
+
+        <div class="text-left" id="description-id">
+            <h4>Description:</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
 
         <!-- Comment section -->
@@ -44,9 +59,9 @@
                         <input type="text" id="userComment" class="form-control input-sm chat-input"
                                placeholder="Write your message here..."/>
                         <span class="input-group-btn">
-                            <a href="#" class="btn btn-primary btn-sm">
+                            <button class="btn btn-primary btn-sm" id="add-comment-button">
                                 <span class="glyphicon glyphicon-comment"></span> Add Comment
-                            </a>
+                            </button>
                         </span>
                     </div>
                     <hr data-brackets-id="12673">
