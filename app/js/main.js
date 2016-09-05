@@ -3,7 +3,6 @@ var app = 'hallo';
 DB.connect(app, true).then(function()
     {
         isLoggedIn();
-        competitionName();
 })
 
 function setCategory(name, limit, id) {
@@ -38,12 +37,4 @@ function setDesign(id, designer, color, galery, material, information, voteCount
     design.category = category;
     design.comment = comment;
     design.save();
-}
-
-function test(){
-    var pic = DB.File('/file/www/images/Pic01.jpg');
-    var pic2 = DB.File('/file/www/images/Pic2.jpg');
-    var pic3 = DB.File('/file/www/images/Pic3.jpg');
-    var pic4 = DB.File('/file/www/images/Pic4.jpg');
-    setDesign(123,"feli-castrian@msn.com","red or blue", [pic,pic2,pic3,pic4] , "Baumwolle", "schöner Schnitt", 0, 55555, "shirts", "ich bin ein Kommentar");
 }
