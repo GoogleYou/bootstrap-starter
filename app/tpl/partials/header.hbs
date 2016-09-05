@@ -1,50 +1,71 @@
-<!--hallo-->
-<!DOCTYPE html>
-<html lang="de">
-<head>
+
+<!DOCTYPE html> 
+<html lang="de"> 
+<head> 
     <meta charset="utf-8">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags --> 
     <meta name="description" content="">
+
     <meta name="author" content="">
+
     <link rel="icon" href="../../favicon.ico">
-
-    <title>Power to the People</title>
-
-    <!-- build:css css/app.css -->
+    <title>Power to the People</title>      <!-- Bootstrap core CSS --> 
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- build:css css/app.css --> 
     <link href="css/style.css" rel="stylesheet">
-
-
-    <!-- endbuild -->
+    <script type="text/javascript" src="../../js/jquery.elevatezoom.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.8.3.min.js"></script>
 </head>
-<!-- NAVBAR
-================================================== -->
-<body>
-
-<nav class="navbar navbar-inverse">
+<!-- NAVBAR ================================================== --> 
+<body>  
+<nav class="navbar navbar-default navbar-fixed-top"> 
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="../index.html">PTTP</a>
+        <div class="navbar-header"> 
+            <a href="index.html"><img id="logo"
+                                      src="https://thabefrijo-bq.global.ssl.fastly.net/v1/file/www/img/LogoB.png"></a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li id="login_header"><a href="../logIn.html">LOG IN</a></li>
-            <li id="signup_header"><a href="../signUp.html">SIGN UP</a></li>
+        <ul class="nav navbar-nav navbar-right"> 
+            <li>
+                <a id="b1" , class="glyphicon glyphicon-user" , class="btn btn-default" href="../signUp.html"> SIGN UP</a>
+            </li>
+            <li>
+                <a id="b2" , class="glyphicon glyphicon-log-in" , class="btn btn-default" href="../logIn.html"> LOG IN</a>
+            </li>
             <li id="username_header"><a href='../userAnsicht.html'></a></li>
             <li id="logOut"><a href="#">LOG OUT</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span
-                        class="glyphicon glyphicon-align-center"></span></a>
-                <span class="caret"></span>
-                <ul class="dropdown-menu">
+            <li class="dropdown"> 
+                <button id="b3" , class="btn btn-link" ‚ class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-align-justify"></span></button>
+                <span class="caret"></span> 
+                <ul class="dropdown-menu"> 
                     <li><a href="../competitionSite.html">COMPETITION</a></li>
-                    <li><a href="#">SHOP</a></li>
+
+                    <li><a href="/webShop.html">SHOP</a></li>
+
                     <li><a href="#">FORUM</a></li>
-                    <li><a href="#">ARTIST</a></li>
-                    <li><a href="#">ABOUT US</a></li>
+
+                    <li><a href="/artistListAnsicht.html">ARTIST</a></li>
+
+                    <li><a href="/impressum.html">ABOUT US</a></li>
+
                     <li><a href="../designDetail.html">test Detail</a></li>
+
                 </ul>
             </li>
+            <li>
+                <a id="b4" , class="btn btn-link" , href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </li>
+            <li>
+                <a id="b5" , class="btn btn-link" , href="#"><span class="glyphicon glyphicon-heart"></span></a>
+            </li>
+
         </ul>
+
     </div>
+
 </nav>
