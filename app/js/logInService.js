@@ -91,8 +91,8 @@ function isLoggedIn() {
         var hrefTag = "<a id='userHref' href='#'>" + username + "</a>";
         var userLink = "../" + username + ".html";
 
-        $("#signup_header").hide();
-        $("#login_header").hide();
+        $("#b1").hide();
+        $("#b2").hide();
         $("#username_header").html(hrefTag);
         $("#userHref").attr({'href': userLink});
     }
