@@ -42,6 +42,5 @@ $("#Votebtn").click(function () {
                     }
 );
 //$("#1234").text(localStorage.getItem("competitionName"));
-$("#1234").text(" "+
-    localStorage.getItem("competitionName") );
+$("#12345").text(" Test "+ localStorage.getItem("competitionName") );
 
