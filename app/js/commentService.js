@@ -3,9 +3,13 @@
  */
 
 $(document).ready(function () {
-    function addComment() {
-        var userComment = document.getElementById("userComment").value;
-        document.getElementById("ui-state-default").innerHTML = userComment;
-    };
+    $("#add-comment-button").click(function () {
+       addComment();
+    });
 
 });
+
+function addComment() {
+    var userComment = document.getElementById("userComment").value;
+    document.getElementById("ui-state-default").innerHTML = userComment;
+};
