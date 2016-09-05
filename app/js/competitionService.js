@@ -24,3 +24,11 @@ $(document).ready(function ($) {
         $('#carousel-text').html($('#slide-content-' + id).html());
     });
 });
+
+$("#PTTP").click(function () {
+    localStorage.setItem("competitionName", "PTTP");
+});
+
+$("#CC").click(function () {
+    localStorage.setItem("competitionName", "Community Competition");
+});
