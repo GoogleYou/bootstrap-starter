@@ -30,3 +30,11 @@ $(document).ready(function () {
 
     });
 });
+
+$("#PTTP").click(function () {
+    localStorage.setItem("competitionName", "PTTP");
+});
+
+$("#CC").click(function () {
+    localStorage.setItem("competitionName", "Community Competition");
+});
