@@ -5,6 +5,7 @@
 
 var elements = new Array();
 
+
 function getElement(index) {
     console.log(elements[index].id)
 }
