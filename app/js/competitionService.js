@@ -1,26 +1,32 @@
-$(document).ready(function ($) {
+$(document).ready(function () {
 
-    $('#myCarousel').carousel({
-                                  interval: 3000
-                              });
+    $("#image-selector-1").click(function () {
 
-    //Handles the carousel thumbnails
-    $('[id^=carousel-selector-]').click(function () {
-        var id_selector = $(this).attr("id");
-        try
-        {
-            var id = /-(\d+)$/.exec(id_selector)[1];
-            console.log(id_selector, id);
-            jQuery('#myCarousel').carousel(parseInt(id));
-        }
-        catch (e)
-        {
-            console.log('Regex failed!', e);
-        }
+        var small = $("#image-selector-1 img").attr("src");
+        var big = $("#foto-id img").attr("src");
+
+        $("#image-selector-1 img").attr({"src" : big});
+        $("#foto-id img").attr({"src" : small});
+
     });
-    // When the carousel slides, auto update the text
-    $('#myCarousel').on('slid.bs.carousel', function (e) {
-        var id = $('.item.active').data('slide-number');
-        $('#carousel-text').html($('#slide-content-' + id).html());
+
+    $("#image-selector-2").click(function () {
+
+        var small = $("#image-selector-2 img").attr("src");
+        var big = $("#foto-id img").attr("src");
+
+        $("#image-selector-2 img").attr({"src" : big});
+        $("#foto-id img").attr({"src" : small});
+
+    });
+
+    $("#image-selector-3").click(function () {
+
+        var small = $("#image-selector-3 img").attr("src");
+        var big = $("#foto-id img").attr("src");
+
+        $("#image-selector-3 img").attr({"src" : big});
+        $("#foto-id img").attr({"src" : small});
+
     });
 });
