@@ -32,7 +32,7 @@ $(document).ready(function () {
 });
 
 $("#PTTP").click(function () {
-    localStorage.setItem("competitionName", "PTTP");
+    localStorage.setItem("competitionName", "PTTP Competition");
 });
 
 $("#CC").click(function () {
