@@ -3,6 +3,7 @@ var app = 'hallo';
 DB.connect(app, true).then(function()
     {
         isLoggedIn();
+        competitionName();
 })
 
 function setCategory(name, limit, id) {
