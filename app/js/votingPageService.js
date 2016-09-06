@@ -126,7 +126,7 @@ function displayDesigns() {
     {
         var url = elements[i].url;
         $("#galleryContainer")
-            .append("<dic class='col-xs-6 col-sm-3'><div class='img-thumbnail img-responsive'><a><img src='" + bildUrl +
+            .append("<div class='col-xs-6 col-sm-3'><div class='img-thumbnail img-responsive'><a><img src='" + bildUrl +
                     "' width='300' height='200'></a> " +
                     "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
                     "<span class='glyphicon glyphicon-heart'></span> Vote " +
@@ -163,7 +163,7 @@ DB.ready(function () {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                    .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
