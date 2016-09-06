@@ -23,14 +23,12 @@ function findDesigns(cat) {
 }
 
 $("#Shirtsbtn").click(function () {
-    elements = [];
-    findDesigns("Shirts");
     DB.Design.find().matches('category',/^Shirts/ ).resultList(function (result) {
         {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .replaceWith("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                    .replaceWith("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
@@ -47,14 +45,12 @@ $("#Shirtsbtn").click(function () {
 
 
 $("#Pulloverbtn").click(function () {
-    elements = [];
-    findDesigns("Pullover");
     DB.Design.find().matches('category',/^Pullover/ ).resultList(function (result) {
         {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .replaceWith("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                    .replaceWith("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
@@ -70,14 +66,12 @@ $("#Pulloverbtn").click(function () {
 });
 
 $("#Jacketsbtn").click(function () {
-    elements = [];
-    findDesigns("Jackets");
     DB.Design.find().matches('category',/^Jackets/ ).resultList(function (result) {
         {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .replaceWith("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                    .replaceWith("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
@@ -93,14 +87,12 @@ $("#Jacketsbtn").click(function () {
 });
 
 $("#Specialsbtn").click(function () {
-    elements = [];
-    findDesigns("Specials");
     DB.Design.find().matches('category',/^Specials/ ).resultList(function (result) {
         {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .replaceWith("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                    .replaceWith("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
