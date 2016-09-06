@@ -3,7 +3,7 @@ var app = 'hallo';
 DB.connect(app, true).then(function()
     {
         isLoggedIn();
-})
+});
 
 function setCategory(name, limit, id) {
     var category = new DB.Category;

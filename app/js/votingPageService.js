@@ -176,4 +176,4 @@ DB.ready(function () {
             })
         }
     })
-})
+});
