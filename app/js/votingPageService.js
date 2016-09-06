@@ -97,4 +97,4 @@ DB.ready(function () {
             })
         }
     })
-})
+});
