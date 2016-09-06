@@ -5,6 +5,7 @@
 
 var elements = new Array();
 
+
 function getElement(index) {
     console.log(elements[index].id)
 }
@@ -78,15 +79,16 @@ function displayDesigns() {
     }
 }
 
+
 DB.ready(function () {
     DB.Design.find().resultList(function (result) {
         {
             result.forEach(function (inf) {
                 var bildUrl = inf.gallery[0];
                 $('#testest')
-                    .append("<dic class='col-xs-6 col-sm-3'><div class='img-thumbnail img-responsive'><a>" +
-                            "<img src='" + bildUrl +
-                            "' width='200' height='220'></a> " +
+                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                            "<img class='imgScaling' src='" + bildUrl +
+                            "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
                             "<span class='glyphicon glyphicon-heart'></span> Vote " +
                             "</button>" +
