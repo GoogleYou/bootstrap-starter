@@ -25,19 +25,96 @@ function findDesigns(cat) {
 $("#Shirtsbtn").click(function () {
     elements = [];
     findDesigns("Shirts");
+    DB.Design.find().matches('category',/^Shirts/ ).resultList(function (result) {
+        {
+            result.forEach(function (inf) {
+                var bildUrl = inf.gallery[0];
+                $('#testest')
+                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                            "<img class='imgScaling' src='" + bildUrl +
+                            "'></a> " +
+                            "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                            "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                            "</button>" +
+                            "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
+                            "<a href='" + bildUrl + "'data-lightbox='TestBild'>" +
+                            "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
+                            "</a></button></div></div>")
+            })
+        }
+    })
 });
+
+
 $("#Pulloverbtn").click(function () {
     elements = [];
     findDesigns("Pullover");
+    DB.Design.find().matches('category',/^Pullover/ ).resultList(function (result) {
+        {
+            result.forEach(function (inf) {
+                var bildUrl = inf.gallery[0];
+                $('#testest')
+                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                            "<img class='imgScaling' src='" + bildUrl +
+                            "'></a> " +
+                            "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                            "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                            "</button>" +
+                            "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
+                            "<a href='" + bildUrl + "'data-lightbox='TestBild'>" +
+                            "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
+                            "</a></button></div></div>")
+            })
+        }
+    })
 });
+
 $("#Jacketsbtn").click(function () {
     elements = [];
     findDesigns("Jackets");
+    DB.Design.find().matches('category',/^Jackets/ ).resultList(function (result) {
+        {
+            result.forEach(function (inf) {
+                var bildUrl = inf.gallery[0];
+                $('#testest')
+                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                            "<img class='imgScaling' src='" + bildUrl +
+                            "'></a> " +
+                            "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                            "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                            "</button>" +
+                            "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
+                            "<a href='" + bildUrl + "'data-lightbox='TestBild'>" +
+                            "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
+                            "</a></button></div></div>")
+            })
+        }
+    })
 });
+
 $("#Specialsbtn").click(function () {
     elements = [];
     findDesigns("Specials");
+    DB.Design.find().matches('category',/^Specials/ ).resultList(function (result) {
+        {
+            result.forEach(function (inf) {
+                var bildUrl = inf.gallery[0];
+                $('#testest')
+                    .append("<dic class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+                            "<img class='imgScaling' src='" + bildUrl +
+                            "'></a> " +
+                            "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                            "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                            "</button>" +
+                            "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
+                            "<a href='" + bildUrl + "'data-lightbox='TestBild'>" +
+                            "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
+                            "</a></button></div></div>")
+            })
+        }
+    })
 });
+
 $("#Votebtn").click(function () {
                     }
 );
