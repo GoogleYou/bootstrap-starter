@@ -3,7 +3,7 @@
  */
 
 
-    var elements = new Array();
+var elements = new Array();
 
 
 function getElement(index) {
@@ -76,3 +76,24 @@ function displayDesigns(){
     }
 }
 
+
+DB.ready(function () {
+    DB.Design.find().resultList(function (result) {
+        {
+            result.forEach(function (inf) {
+                var bildUrl = inf.gallery[0];
+                $('#testest')
+                    .append("<dic class='col-xs-6 col-sm-3'><div class='img-thumbnail img-responsive'><a href='" +
+                            bildUrl + "'data-lightbox='TestBild'><img src='" + bildUrl +
+                            "' width='200' height='220'></a> " +
+                            "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                            "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                            "</button>" +
+                            "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
+                            "<a href='" + bildUrl + "'>" +
+                            "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
+                            "</a></button></div></div>")
+            })
+        }
+    })
+})
