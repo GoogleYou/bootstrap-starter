@@ -3,25 +3,6 @@
  */
 
 
-var elements = new Array();
-
-
-function getElement(index) {
-    console.log(elements[index].id)
-}
-
-function findDesigns(cat) {
-    DB.Design.find().resultList(function (result) {
-        result.forEach(function (design) {
-            if (design.category === cat)
-            {
-                elements.push(design);
-            }
-
-        });
-    })
-}
-
 $("#Shirtsbtn").click(function () {
     DB.Design.find().matches('category',/^Shirts/ ).resultList(function (result) {
         {
@@ -138,12 +119,13 @@ function displayDesigns() {
 
 DB.ready(function () {
     DB.Design.find().resultList(function (result) {
-        {
-            $('#voting-gallery-container').empty();
-            result.forEach(function (designs) {
-                var bildUrl = designs.gallery[0];
-                $('#voting-gallery-container')
-                    .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
+        DB.Design.find().matches('category',/^Shirts/ ).resultList(function (result) {
+            {
+                $('#voting-gallery-container').empty();
+                result.forEach(function (designs) {
+                    var bildUrl = designs.gallery[0];
+                    $('#voting-gallery-container')
+                        .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3><div class='img-thumbnail img-responsive'><a>" +
                             "<img class='imgScaling' src='" + bildUrl +
                             "'></a> " +
                             "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
@@ -153,7 +135,8 @@ DB.ready(function () {
                             "<a href='" + bildUrl + "'data-lightbox='TestBild'>" +
                             "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
                             "</a></button></div></div>")
-            })
-        }
+                })
+            }
+        })
     })
 });
