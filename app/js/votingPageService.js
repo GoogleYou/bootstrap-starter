@@ -142,60 +142,101 @@ function append(result) {
 
 $("#1234").text(localStorage.getItem("competitionName"));
 
-var localShirtCounter = 0;
-var localJacketCounter = 0;
-var localPulloverCounter = 0;
-var localSpecialCounter = 0;
 
 function voteEvent() {
-    $("#voting-gallery-container").on("click", "button.btnvote", function () {
-        var designId = $(this).parent().parent().attr("id");
+    if (DB.User.me !== null)
+    {
+        $("#voting-gallery-container").on("click", "button.btnvote", function () {
+            var designId = $(this).parent().parent().attr("id");
 
-        DB.Design.load(designId).then(function (design) {
-            var category = DB.Category.load(design.idCategory);
+            DB.Design.load(designId).then(function (design) {
+                DB.Category.find().equal("id", design.categoryId).singleResult(function (cat) {
+                    if (cat.name === "Shirts")
+                    {
+                        if (DB.User.me.votedShirts === null)
+                        {
+                            DB.User.me.votedShirts = new Array();
+                        }
 
-            if (localCounter < category.voteLimitPerPerson)
-            {
-                design.voteCounter = design.voteCounter + 1;
-                design.update().then(onUpdateSuccess(category),
-                                     onUpdateDenied(design));
-            }
-            else
-            {
-                alert("You have reached the maximum amount of votes in this category.");
-            }
+                        if (DB.User.me.votedShirts.indexOf(design) === -1)
+                        {
+                            if (DB.User.me.votedShirts.length < cat.voteLimitPerPerson)
+                            {
+                                vote(design, DB.User.me.votedShirts);
+                            }
+                            else
+                            {
+                                alert("You have reached the maximum amount of votes in this category.");
+                            }
+                        }
+                        else
+                        {
+                            unvote(design, DB.User.me.votedShirts);
+                        }
+
+                    }
+                    else if (category.name === "Jackets")
+                    {
+                        localJacketCounter++;
+                    }
+                    else if (category.name === "Pullover")
+                    {
+                        localPulloverCounter++;
+                    }
+                    else if (category.name === "Specials")
+                    {
+                        localSpecialCounter++;
+                    }
+                });
+
+            });
         });
-    });
-}
-
-function onUpdateSuccess(category) {
-    console.log("Success: " + design.voteCounter);
-    if(category.name === "Shirts")
-    {
-        localShirtCounter++;
-    }
-    else if(category.name === "Jackets")
-    {
-        localJacketCounter++;
-    }
-    else if(category.name === "Pullover")
-    {
-        localPulloverCounter++;
-    }
-    else if(category.name === "Specials")
-    {
-        localSpecialCounter++;
     }
     else
     {
-        console.log("Voted for design of unknown category");
+        alert("You have to be logged in.");
     }
+}
+
+function vote(design, list) {
+    design.voteCounter = design.voteCounter + 1;
+    design.update().then(function () {
+        onUpdateSuccess(design, list);
+    }).catch(function () {
+        onUpdateDenied(design);
+    });
+}
+
+function unvote(design, list) {
+    design.voteCounter = design.voteCounter - 1;
+    design.update().then(function () {
+        onUpdateUnvoteSuccess(design, list);
+    }).catch(function () {
+        onUpdateUnvoteDenied(design);
+    });
+
+}
+
+function onUpdateSuccess(design, list) {
+    console.log("Design update success: " + design.voteCounter);
+    list.push(design);
+    DB.User.me.save();
 }
 
 function onUpdateDenied(design) {
     design.voteCounter = design.voteCounter - 1;
-    console.log("Denied");
+    console.log("Design update denied");
 }
 
+function onUpdateUnvoteSuccess(design, list) {
+    console.log("Design unvote success: " + design.voteCounter);
+    list.pop(design);
+    DB.User.me.save();
+}
+
+function onUpdateUnvoteDenied(design) {
+    design.voteCounter = design.voteCounter + 1;
+    console.log("Design unvote denied");
+}
 
 
