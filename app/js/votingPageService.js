@@ -104,6 +104,7 @@ DB.ready(function () {
 
             append(result);
             registerClickEvents();
+            goToDetail();
         });
     });
 });
@@ -126,7 +127,7 @@ function append(result) {
                     "'></a> " +
                     "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
                     "'>" +
-                    "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                    "<span class='glyphicon glyphicon-heart-empty'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
@@ -156,6 +157,13 @@ function registerClickEvents() {
         });
     });
 }
+
+function goToDetail() {
+    $("#voting-gallery-container").on("click", "img.imgScaling", function () {
+        var designId = $(this).parent().attr("id");
+        localStorage.setItem("IdDesign", designId);
+        window.location.replace("designDetail.html")
+})}
 
 
 
