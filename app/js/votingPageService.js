@@ -143,11 +143,11 @@ function append(result) {
 
 $("#1234").text(localStorage.getItem("competitionName"));
 
-
 function voteEvent() {
-    if (DB.User.me !== null)
-    {
-        $("#voting-gallery-container").on("click", "button.btnvote", function () {
+
+    $("#voting-gallery-container").on("click", "button.btnvote", function () {
+        if (DB.User.me !== null)
+        {
             var designId = $(this).parent().parent().attr("id");
 
             DB.Design.load(designId).then(function (design) {
@@ -191,12 +191,12 @@ function voteEvent() {
                 });
 
             });
-        });
-    }
-    else
-    {
-        alert("You have to be logged in.");
-    }
+        }
+        else
+        {
+            alert("You have to be logged in.");
+        }
+    });
 }
 
 function vote(design, list) {
@@ -244,7 +244,8 @@ function goToDetail() {
         var designId = $(this).parent().attr("id");
         localStorage.setItem("IdDesign", designId);
         window.location.replace("designDetail.html")
-})}
+    })
+}
 
 
 
