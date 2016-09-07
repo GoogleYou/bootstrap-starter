@@ -23,6 +23,7 @@ function changeImages(image) {
 
 $("#PTTP").click(function () {
     localStorage.setItem("competitionName", "PTTP Competition");
+
 });
 
 $("#CC").click(function () {

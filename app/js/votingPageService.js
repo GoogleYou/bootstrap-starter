@@ -2,7 +2,7 @@
  * Created by Frank on 31.08.16.
  */
 
-var deadline = '2015-12-31';
+var deadline;
 
 function getTimeRemaining(endtime){
     var t = Date.parse(endtime) - Date.parse(new Date());
@@ -47,31 +47,39 @@ initializeClock('clockdiv', '10/10/2016');
 
 
 $("#Shirtsbtn").click(function () {
-    DB.Design.find().matches('category', /^Shirts/).resultList(function (result) {
+    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function(shirtCat){
+        DB.Design.find().equal('categoryId',shirtCat.id).resultList(function (result) {
 
-        append(result);
-    });
+            append(result);
+        });
+    })
 });
 
 $("#Pulloverbtn").click(function () {
-    DB.Design.find().matches('category', /^Pullover/).resultList(function (result) {
+    DB.Category.load("/db/Category/6cb24498-abf5-4c11-a80a-9278e5c7c563").then(function(pulloverCat){
+        DB.Design.find().equal('categoryId',pulloverCat.id).resultList(function (result) {
 
         append(result);
     });
+    })
 });
 
 $("#Jacketsbtn").click(function () {
-    DB.Design.find().matches('category', /^Jackets/).resultList(function (result) {
+    DB.Category.load("/db/Category/659edcb3-3b65-4796-a4a6-575e5e3fdc2a").then(function(jacketCat){
+        DB.Design.find().equal('categoryId',jacketCat.id).resultList(function (result) {
 
         append(result);
     });
+    })
 });
 
 $("#Specialsbtn").click(function () {
-    DB.Design.find().matches('category', /^Specials/).resultList(function (result) {
+    DB.Category.load("/db/Category/7da19d3c-d04a-434a-872a-b143233bb4a7").then(function(specialCat){
+        DB.Design.find().equal('categoryId',specialCat.id).resultList(function (result) {
 
         append(result);
     });
+    })
 });
 
 DB.ready(function () {
