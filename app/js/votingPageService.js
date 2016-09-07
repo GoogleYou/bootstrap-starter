@@ -30,18 +30,11 @@ $("#Specialsbtn").click(function () {
     });
 });
 
-$("#Votebtn").click(function () {
-
-});
-
-$("#1234").text(localStorage.getItem("competitionName"));
-
 DB.ready(function () {
     DB.Design.find().resultList(function (result) {
         DB.Design.find().matches('category', /^Shirts/).resultList(function (result) {
 
             append(result);
-
         });
     });
 });
@@ -49,6 +42,7 @@ DB.ready(function () {
 function append(result) {
 
     $('#voting-gallery-container').empty();
+    var btnId = 0;
 
     result.forEach(function (design) {
 
@@ -56,18 +50,34 @@ function append(result) {
         var designId = design.id;
 
         $('#voting-gallery-container')
-            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive' id='" +
+            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive vote-item' id='" +
                     designId +
-                    "'a>" +
+                    "' a>" +
                     "<img class='imgScaling' src='" + bildUrl +
                     "'></a> " +
-                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
+                    "'>" +
                     "<span class='glyphicon glyphicon-heart'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
                     "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
                     "</a></button></div></div>");
+
+        $("#" + btnId).click(function () {
+            var designId = $(".vote-item").attr("id");
+            DB.Design.load(designId).then(function (design) {
+                design.voteCounter = design.voteCounter + 1;
+                design.update().then(function () {
+                    console.log(design.voteCounter);
+                });
+            });
+        });
+
+        btnId++;
     });
 }
+
+$("#1234").text(localStorage.getItem("competitionName"));
+
 
