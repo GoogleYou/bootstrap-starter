@@ -1,4 +1,3 @@
-
 @import "../../node_modules/bootstrap/less/bootstrap";
 @import "logInStyle";
 @import "competitionPageStyle";
@@ -6,21 +5,22 @@
 @import "designDetailStyle";
 @import "lightbox";
 /* Space out content a bit */
-body {
-  padding-bottom: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
+body, html {
+  padding: 0;
+  margin: 0;
 }
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
-.marketing,
-.footer {
+.marketing {
   padding-right: 15px;
   padding-left: 15px;
 }
+
 /* Custom page header */
 .header {
 }
+
 /*Customizing of header*/
 .navbar-default {
   height: 90px;
@@ -29,31 +29,38 @@ body {
   font-family: "Shree Devanagari 714";
   align: center;
 }
+
 #logo {
   max-height: 100%;
   position: absolute;
   top: 0;
 }
+
 #b1 {
   color: black;
 }
+
 #b2 {
   color: black;
 }
+
 #b3 {
   margin-bottom: -35px;
   margin-right: -20px;
   color: black;
 }
+
 #b4 {
   margin-bottom: -40px;
   margin-right: -10px;
   color: black;
 }
+
 #b5 {
   margin-bottom: -40px;
   color: black;
 }
+
 /*Backgroundvideo customizing*/
 .jumbotron {
   margin-top: 60px;
@@ -62,6 +69,7 @@ body {
   background-position: center;
   margin-bottom: -50px;
 }
+
 /*Logo in the middle of video*/
 #logo2 {
   width: 70%;
@@ -71,6 +79,7 @@ body {
   margin-right: auto;
   margin-top: 100px;
 }
+
 /* Keine Ahnung
 .table {
   border: 1px solid black;
@@ -90,23 +99,27 @@ body {
   border-top-color: black;
   border-top-width: 2px;
 }
+
 #competition {
   margin-bottom: -20px;
   background-image: url("https://thabefrijo-bq.global.ssl.fastly.net/v1/file/www/img/stock-illustration-93521929-set-of-decorative-sketch-award-with-trophy.jpg");
   background-position: top;
 }
+
 #shop {
   margin-top: -20px;
   margin-bottom: -20px;
   background-image: url("https://thabefrijo-bq.global.ssl.fastly.net/v1/file/www/img/stock-illustration-25261888-shopping-bags.jpg");
   background-position: top;
 }
+
 #artists {
   margin-top: -20px;
   margin-bottom: -20px;
   background-image: url("https://thabefrijo-bq.global.ssl.fastly.net/v1/file/www/img/42572066-scissors-cutting-ribbon-drawing.jpg");
   background-position: center;
 }
+
 #forum {
   margin-top: -30px;
   margin-bottom: -30px;
@@ -114,6 +127,7 @@ body {
   background-position: center;
   background-size: 45%;
 }
+
 #about {
   margin-top: -20px;
   margin-bottom: -20px;
@@ -121,17 +135,31 @@ body {
   background-position: bottom;
   background-size: 100%;
 }
+
 /* Customizing footer */
-.footer {
-  padding-top: 19px;
+.footer .push{
+  /*
   color: #777;
-  border-top: 1px solid #e5e5e5;
   font-family: "Shree Devanagari 714";
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
+  z-index: 10;
+  padding-left: 10px;
+  padding-right: 10px;*/
+    height: 142px; /* .push must be the same height as .footer */
 }
+
 /*Back to top*/
 #btt {
   color: black;
 }
+
+#btb {
+  text-align: right;
+}
+
 /* Customize container*/
 @media (min-width: 768px) {
   .container {
@@ -139,20 +167,32 @@ body {
     text-align: center;
   }
 }
+
 .container-narrow > hr {
   margin: 30px;
 }
+
 /* Main marketing message and sign up button*/
 .fotos {
-  text-align: left;
-;
+  text-align: left;;
 }
+
 .hauptFoto {
-  text-align: center;
-; }
+  text-align: center;;
+}
+
 .button {
-  text-align: center;
-;}
+  text-align: center;;
+}
+
 #positionB {
   margin-left: 50px;
+}
+
+#footer-left {
+  float: left;
+}
+
+#footer-right {
+  float: right;
 }
