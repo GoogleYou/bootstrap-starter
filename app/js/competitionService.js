@@ -1,16 +1,26 @@
 $(document).ready(function () {
 
-    $("#image-selector-1").click(function () {
-        changeImages(this);
-    });
+            $("#image-selector-1").click(function () {
+                changeImages(this);
+            });
 
-    $("#image-selector-2").click(function () {
-        changeImages(this);
-    });
+            $("#image-selector-2").click(function () {
+                changeImages(this);
+            });
 
-    $("#image-selector-3").click(function () {
-        changeImages(this);
-    });
+            $("#image-selector-3").click(function () {
+                changeImages(this);
+            });
+        });
+
+
+$("#PTTP").click(function () {
+    localStorage.setItem("competitionName", "PTTP Competition");
+
+});
+
+$("#CC").click(function () {
+    localStorage.setItem("competitionName", "Community Competition");
 });
 
 function changeImages(image) {
@@ -20,11 +30,3 @@ function changeImages(image) {
     $("img", image).attr({"src": big});
     $("#foto-id img").attr({"src": small});
 }
-
-$("#PTTP").click(function () {
-    localStorage.setItem("competitionName", "PTTP Competition");
-});
-
-$("#CC").click(function () {
-    localStorage.setItem("competitionName", "Community Competition");
-});

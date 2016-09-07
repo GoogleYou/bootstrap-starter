@@ -2,7 +2,6 @@
  * Created by Frank on 31.08.16.
  */
 
-var deadline = '2015-12-31';
 
 function getTimeRemaining(endtime){
     var t = Date.parse(endtime) - Date.parse(new Date());
@@ -41,8 +40,24 @@ function initializeClock(id, endtime){
     updateClock(); // run function once at first to avoid delay
     var timeinterval = setInterval(updateClock,1000);
 }
+function newClock(){
+    if (localStorage.getItem("competitionName") === "PTTP Competition"){
+        DB.ready(function () {
+            DB.Competition.find().matches('ideaFrom', /^PTTP/).singleResult(function(result) {
+                initializeClock('clockdiv', result.time);
+            });
+    })}
+    else {
+        DB.ready(function () {
+            DB.Competition.find().matches('ideaFrom', /^Community/).singleResult(function(result) {
+                initializeClock('clockdiv', result.time);
+            });
+    })
+}
+}
 
-initializeClock('clockdiv', '10/10/2016');
+newClock();
+//initializeClock('clockdiv', deadline);
 
 
 
