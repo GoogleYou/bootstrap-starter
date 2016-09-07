@@ -42,28 +42,31 @@ function initializeClock(id, endtime) {
     updateClock(); // run function once at first to avoid delay
     var timeinterval = setInterval(updateClock, 1000);
 }
-function newClock(){
-    if (localStorage.getItem("competitionName") === "PTTP Competition"){
+function newClock() {
+    if (localStorage.getItem("competitionName") === "PTTP Competition")
+    {
         DB.ready(function () {
-            DB.Competition.find().matches('ideaFrom', /^PTTP/).singleResult(function(result) {
+            DB.Competition.find().matches('ideaFrom', /^PTTP/).singleResult(function (result) {
                 initializeClock('clockdiv', result.time);
             });
-    })}
-    else {
+        })
+    }
+    else
+    {
         DB.ready(function () {
-            DB.Competition.find().matches('ideaFrom', /^Community/).singleResult(function(result) {
+            DB.Competition.find().matches('ideaFrom', /^Community/).singleResult(function (result) {
                 initializeClock('clockdiv', result.time);
             });
-    })
-}
+        })
+    }
 }
 
 newClock();
 //initializeClock('clockdiv', deadline);
 
 $("#Shirtsbtn").click(function () {
-    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function(shirtCat){
-        DB.Design.find().equal('categoryId',shirtCat.id).resultList(function (result) {
+    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
+        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
         });
@@ -71,39 +74,38 @@ $("#Shirtsbtn").click(function () {
 });
 
 $("#Pulloverbtn").click(function () {
-    DB.Category.load("/db/Category/6cb24498-abf5-4c11-a80a-9278e5c7c563").then(function(pulloverCat){
-        DB.Design.find().equal('categoryId',pulloverCat.id).resultList(function (result) {
+    DB.Category.load("/db/Category/6cb24498-abf5-4c11-a80a-9278e5c7c563").then(function (pulloverCat) {
+        DB.Design.find().equal('categoryId', pulloverCat.id).resultList(function (result) {
 
-        append(result);
-    });
+            append(result);
+        });
     })
 });
 
 $("#Jacketsbtn").click(function () {
-    DB.Category.load("/db/Category/659edcb3-3b65-4796-a4a6-575e5e3fdc2a").then(function(jacketCat){
-        DB.Design.find().equal('categoryId',jacketCat.id).resultList(function (result) {
+    DB.Category.load("/db/Category/659edcb3-3b65-4796-a4a6-575e5e3fdc2a").then(function (jacketCat) {
+        DB.Design.find().equal('categoryId', jacketCat.id).resultList(function (result) {
 
-        append(result);
-    });
+            append(result);
+        });
     })
 });
 
 $("#Specialsbtn").click(function () {
-    DB.Category.load("/db/Category/7da19d3c-d04a-434a-872a-b143233bb4a7").then(function(specialCat){
-        DB.Design.find().equal('categoryId',specialCat.id).resultList(function (result) {
+    DB.Category.load("/db/Category/7da19d3c-d04a-434a-872a-b143233bb4a7").then(function (specialCat) {
+        DB.Design.find().equal('categoryId', specialCat.id).resultList(function (result) {
 
-        append(result);
-    });
+            append(result);
+        });
     })
 });
 
 DB.ready(function () {
-    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function(shirtCat){
-        DB.Design.find().equal('categoryId',shirtCat.id).resultList(function (result) {
-
+    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
+        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
-            registerClickEvents();
+            voteEvent();
         });
     });
 });
@@ -119,7 +121,7 @@ function append(result) {
         var designId = design.id;
 
         $('#voting-gallery-container')
-            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive vote-item' id='" +
+            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive voteEvent-item' id='" +
                     designId +
                     "' a>" +
                     "<img class='imgScaling' src='" + bildUrl +
@@ -140,23 +142,60 @@ function append(result) {
 
 $("#1234").text(localStorage.getItem("competitionName"));
 
-function registerClickEvents() {
+var localShirtCounter = 0;
+var localJacketCounter = 0;
+var localPulloverCounter = 0;
+var localSpecialCounter = 0;
+
+function voteEvent() {
     $("#voting-gallery-container").on("click", "button.btnvote", function () {
         var designId = $(this).parent().parent().attr("id");
 
         DB.Design.load(designId).then(function (design) {
-            design.voteCounter = design.voteCounter + 1;
-            design.update().then(function () {
-                                     console.log("Success: " + design.voteCounter);
-                                 },
-                                 function () {
-                                     design.voteCounter = design.voteCounter - 1;
-                                     console.log("Denied")
-                                 });
+            var category = DB.Category.load(design.idCategory);
+
+            if (localCounter < category.voteLimitPerPerson)
+            {
+                design.voteCounter = design.voteCounter + 1;
+                design.update().then(onUpdateSucces(category),
+                                     onUpdateDenied(design));
+            }
+            else
+            {
+                alert("You have reached the maximum amount of votes in this category.");
+            }
         });
     });
 }
 
+function onUpdateSucces(category) {
+    console.log("Success: " + design.voteCounter);
+    if(category.name === "Shirts")
+    {
+        localShirtCounter++;
+    }
+    else if(category.name === "Jackets")
+    {
+        localJacketCounter++;
+    }
+    else if(category.name === "Pullover")
+    {
+        localPulloverCounter++;
+    }
+    else if(category.name === "Specials")
+    {
+        localSpecialCounter++;
+    }
+    else
+    {
+        console.log("Voted for design of unknown category");
+    }
+}
+
+function onUpdateDenied(design) {
+    design.voteCounter = design.voteCounter - 1;
+    console.log("Denied");
+}
 
 
 
