@@ -83,8 +83,9 @@ $("#Specialsbtn").click(function () {
 });
 
 DB.ready(function () {
-    DB.Design.find().resultList(function (result) {
-        DB.Design.find().matches('category', /^Shirts/).resultList(function (result) {
+    DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function(shirtCat){
+        DB.Design.find().equal('categoryId',shirtCat.id).resultList(function (result) {
+
 
             append(result);
         });
