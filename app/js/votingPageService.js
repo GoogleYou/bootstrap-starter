@@ -105,6 +105,7 @@ DB.ready(function () {
         DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
+            goToDetail();
             voteEvent();
         });
     });
@@ -128,7 +129,7 @@ function append(result) {
                     "'></a> " +
                     "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
                     "'>" +
-                    "<span class='glyphicon glyphicon-heart'></span> Vote " +
+                    "<span class='glyphicon glyphicon-heart-empty'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
@@ -238,5 +239,13 @@ function onUpdateUnvoteDenied(design) {
     design.voteCounter = design.voteCounter + 1;
     console.log("Design unvote denied");
 }
+function goToDetail() {
+    $("#voting-gallery-container").on("click", "img.imgScaling", function () {
+        var designId = $(this).parent().attr("id");
+        localStorage.setItem("IdDesign", designId);
+        window.location.replace("designDetail.html")
+})}
+
+
 
 
