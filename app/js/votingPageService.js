@@ -3,12 +3,12 @@
  */
 
 
-function getTimeRemaining(endtime){
+function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
-    var seconds = Math.floor( (t/1000) % 60 );
-    var minutes = Math.floor( (t/1000/60) % 60 );
-    var hours = Math.floor( (t/(1000*60*60)) % 24 );
-    var days = Math.floor( t/(1000*60*60*24) );
+    var seconds = Math.floor((t / 1000) % 60);
+    var minutes = Math.floor((t / 1000 / 60) % 60);
+    var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+    var days = Math.floor(t / (1000 * 60 * 60 * 24));
     return {
         'total': t,
         'days': days,
@@ -18,13 +18,14 @@ function getTimeRemaining(endtime){
     };
 }
 
-function initializeClock(id, endtime){
+function initializeClock(id, endtime) {
     var clock = document.getElementById(id);
     var daysSpan = clock.querySelector('.days');
     var hoursSpan = clock.querySelector('.hours');
     var minutesSpan = clock.querySelector('.minutes');
     var secondsSpan = clock.querySelector('.seconds');
-    function updateClock(){
+
+    function updateClock() {
         var t = getTimeRemaining(endtime);
 
         daysSpan.innerHTML = t.days;
@@ -32,13 +33,14 @@ function initializeClock(id, endtime){
         minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
         secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
 
-        if(t.total<=0){
+        if (t.total <= 0)
+        {
             clearInterval(timeinterval);
         }
     }
 
     updateClock(); // run function once at first to avoid delay
-    var timeinterval = setInterval(updateClock,1000);
+    var timeinterval = setInterval(updateClock, 1000);
 }
 function newClock(){
     if (localStorage.getItem("competitionName") === "PTTP Competition"){
@@ -58,8 +60,6 @@ function newClock(){
 
 newClock();
 //initializeClock('clockdiv', deadline);
-
-
 
 $("#Shirtsbtn").click(function () {
     DB.Design.find().matches('category', /^Shirts/).resultList(function (result) {
@@ -89,18 +89,12 @@ $("#Specialsbtn").click(function () {
     });
 });
 
-$("#Votebtn").click(function () {
-
-});
-
-$("#1234").text(localStorage.getItem("competitionName"));
-
 DB.ready(function () {
     DB.Design.find().resultList(function (result) {
         DB.Design.find().matches('category', /^Shirts/).resultList(function (result) {
 
             append(result);
-
+            registerClickEvents();
         });
     });
 });
@@ -108,6 +102,7 @@ DB.ready(function () {
 function append(result) {
 
     $('#voting-gallery-container').empty();
+    var btnId = 0;
 
     result.forEach(function (design) {
 
@@ -115,18 +110,44 @@ function append(result) {
         var designId = design.id;
 
         $('#voting-gallery-container')
-            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive' id='" +
+            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive vote-item' id='" +
                     designId +
-                    "'a>" +
+                    "' a>" +
                     "<img class='imgScaling' src='" + bildUrl +
                     "'></a> " +
-                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='Votebtn'>" +
+                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
+                    "'>" +
                     "<span class='glyphicon glyphicon-heart'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
                     "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
                     "</a></button></div></div>");
+
+        btnId++;
+
     });
 }
+
+$("#1234").text(localStorage.getItem("competitionName"));
+
+function registerClickEvents() {
+    $("#voting-gallery-container").on("click", "button.btnvote", function () {
+        var designId = $(this).parent().parent().attr("id");
+
+        DB.Design.load(designId).then(function (design) {
+            design.voteCounter = design.voteCounter + 1;
+            design.update().then(function () {
+                                     console.log("Success: " + design.voteCounter);
+                                 },
+                                 function () {
+                                     design.voteCounter = design.voteCounter - 1;
+                                     console.log("Denied")
+                                 });
+        });
+    });
+}
+
+
+
 
