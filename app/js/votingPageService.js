@@ -157,7 +157,7 @@ function voteEvent() {
             if (localCounter < category.voteLimitPerPerson)
             {
                 design.voteCounter = design.voteCounter + 1;
-                design.update().then(onUpdateSucces(category),
+                design.update().then(onUpdateSuccess(category),
                                      onUpdateDenied(design));
             }
             else
@@ -168,7 +168,7 @@ function voteEvent() {
     });
 }
 
-function onUpdateSucces(category) {
+function onUpdateSuccess(category) {
     console.log("Success: " + design.voteCounter);
     if(category.name === "Shirts")
     {
