@@ -61,8 +61,9 @@ function newClock() {
     }
 }
 
-newClock();
-//initializeClock('clockdiv', deadline);
+    newClock();
+
+
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
@@ -119,7 +120,7 @@ function append(result) {
 
     $('#voting-gallery-container').empty();
     var btnId = 0;
-
+    var heartId = 200;
     result.forEach(function (design) {
 
         var bildUrl = design.gallery[0];
@@ -133,16 +134,72 @@ function append(result) {
                     "'></a> " +
                     "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
                     "'>" +
-                    "<span class='glyphicon glyphicon-heart-empty'></span> Vote " +
+                    "<span class='glyphicon glyphicon-heart-empty' id='" + heartId + "'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
                     "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
                     "</a></button></div></div>");
-
+        isAlreadyVoted(designId, heartId);
+        heartId++;
         btnId++;
 
     });
+}
+
+function isAlreadyVoted(designId, heartId) {
+
+    if (DB.User.me !== null)
+    {
+        DB.Design.load(designId).then(function (design) {
+            console.log(design.categoryId);
+            design.categoryId.load().then(function (cat) {
+                DB.User.me.load({depth: 1}).then(function () {
+
+                    if (cat.name === "Shirts")
+                    {
+                            markAsVoted(DB.User.me.votedShirts, design, heartId);
+                    }
+                    else if (cat.name === "Pullover")
+                    {
+                        markAsVoted(DB.User.me.votedPullover, design, heartId);
+                    }
+                    else if (cat.name === "Jackets")
+                    {
+                        markAsVoted(DB.User.me.votedJackets, design, heartId);
+                    }
+                    else if (cat.name === "Specials")
+                    {
+                        markAsVoted(DB.User.me.votedSpecials, design, heartId);
+                    }
+
+                })
+
+            });
+        })
+    }
+    else
+    {
+        return;
+    }
+}
+
+function markAsVoted(list, design, heartId) {
+    if (list !== null)
+    {
+
+        var indexOfDesign = list.indexOf(design);
+        if (indexOfDesign >= 0)
+        {
+            $("#" + heartId).attr("class", "glyphicon glyphicon-heart");
+            $("#" + heartId).css("color", "#cb1529");
+        }
+        else
+        {
+            return;
+        }
+
+    }
 }
 
 $("#1234").text(localStorage.getItem("competitionName"));

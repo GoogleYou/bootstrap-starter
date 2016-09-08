@@ -1,27 +1,32 @@
 /**
  * Created by Frank on 07.09.16.
  */
-//12334
+
 var designObject;
-//var designerObject;
+var designerObject;
+var designerId;
 
 DB.ready(function () {
-loadDesign()
-})
+    loadDesign();
+});
+
+
 function loadDesign() {
 
     var DesignId = localStorage.getItem("IdDesign");
     DB.Design.load(DesignId).then(function (pic) {
         designObject = pic;
-     //   loadDesigner();
-        loadDesign2();
+        designerId = pic.designer.toString();
+        loadDesigner();
     })
 }
 
-/*function loadDesigner(){
-    DB.Design.load(designObject.designer).then(function (artist) {
+function loadDesigner() {
+    DB.User.load(designerId).then(function (artist) {
         designerObject = artist;
-})}*/
+        loadDesign2();
+    })
+}
 
 function loadDesign2() {
     $("#image-selector-1").empty()
@@ -33,9 +38,9 @@ function loadDesign2() {
     $("#foto-id").empty()
     $("#foto-id").append("<img src='" + designObject.gallery[0] + "'>")
     $("#description-id").empty()
-    $("#description-id").append("<h3>Description</h3><p>" + designObject.information + "</p>"+
-    "<h4>Material</h4><p>" + designObject.material + "</p>" +
-    "<h4>Color</h4><p>" + designObject.color + "</p>"
-        //"<h4>Designer</h4><p>"+designerObject.firstName +"</p><p>"+designerObject.lastName+"</p>"
+    $("#description-id").append("<h3>Description</h3><p>" + designObject.information + "<br><br></p>" +
+        "<h4>Material</h4><p>" + designObject.material + "<br><br></p>" +
+        "<h4>Color</h4><p>" + designObject.color + "<br><br></p>" +
+        "<h4>Designer</h4><p>" + designerObject.firstName + " " + designerObject.lastName + "<br><br></p>"
     )
 }
