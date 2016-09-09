@@ -13,8 +13,8 @@ DB.ready(function () {
 
 function loadDesign() {
 
-    var DesignId = localStorage.getItem("IdDesign");
-    DB.Design.load(DesignId).then(function (pic) {
+    var designId = localStorage.getItem("IdDesign");
+    DB.Design.load(designId).then(function (pic) {
         designObject = pic;
         designerId = pic.designer.toString();
         loadDesigner();
@@ -29,18 +29,12 @@ function loadDesigner() {
 }
 
 function loadDesign2() {
-    $("#image-selector-1").empty()
-    $("#image-selector-1").append("<img src='" + designObject.gallery[1] + "'></div>")
-    $("#image-selector-2").empty()
-    $("#image-selector-2").append("<img src='" + designObject.gallery[2] + "'></div>")
-    $("#image-selector-3").empty()
-    $("#image-selector-3").append("<img src='" + designObject.gallery[3] + "'></div>")
-    $("#foto-id").empty()
-    $("#foto-id").append("<img src='" + designObject.gallery[0] + "'>")
-    $("#description-id").empty()
-    $("#description-id").append("<h3>Description</h3><p>" + designObject.information + "<br><br></p>" +
+    $("#image-selector-1").empty().append("<img src='" + designObject.gallery[1] + "'></div>");
+    $("#image-selector-2").empty().append("<img src='" + designObject.gallery[2] + "'></div>");
+    $("#image-selector-3").empty().append("<img src='" + designObject.gallery[3] + "'></div>");
+    $("#foto-id").empty().append("<img src='" + designObject.gallery[0] + "'>");
+    $("#description-id").empty().append("<h3>Description</h3><p>" + designObject.information + "<br><br></p>" +
         "<h4>Material</h4><p>" + designObject.material + "<br><br></p>" +
         "<h4>Color</h4><p>" + designObject.color + "<br><br></p>" +
-        "<h4>Designer</h4><p>" + designerObject.firstName + " " + designerObject.lastName + "<br><br></p>"
-    )
+        "<h4>Designer</h4><p>" + designerObject.firstName + " " + designerObject.lastName + "<br><br></p>");
 }

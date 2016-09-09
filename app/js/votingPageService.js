@@ -65,10 +65,10 @@ newClock();
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
-       var name = localStorage.getItem("competitionID");
-        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', name).resultList(function (result) {
+        var competitionId = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', competitionId).resultList(function (result) {
             append(result);
-            setVoteCounterInHeader(shirtCat);
+            setVoteCounterInHeader(shirtCat, competitionId);
             voteEvent();
 
         });
@@ -77,10 +77,10 @@ $("#Shirtsbtn").click(function () {
 
 $("#Pulloverbtn").click(function () {
     DB.Category.load("/db/Category/6cb24498-abf5-4c11-a80a-9278e5c7c563").then(function (pulloverCat) {
-        var name = localStorage.getItem("competitionID");
-        DB.Design.find().equal('categoryId', pulloverCat.id).equal('competitionId', name).resultList(function (result) {
+        var competitionId = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', pulloverCat.id).equal('competitionId', competitionId).resultList(function (result) {
             append(result);
-            setVoteCounterInHeader(pulloverCat);
+            setVoteCounterInHeader(pulloverCat, competitionId);
             voteEvent();
         });
     })
@@ -88,11 +88,11 @@ $("#Pulloverbtn").click(function () {
 
 $("#Jacketsbtn").click(function () {
     DB.Category.load("/db/Category/659edcb3-3b65-4796-a4a6-575e5e3fdc2a").then(function (jacketCat) {
-        var name = localStorage.getItem("competitionID");
-        DB.Design.find().equal('categoryId', jacketCat.id).equal('competitionId', name).resultList(function (result) {
+        var competitionId = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', jacketCat.id).equal('competitionId', competitionId).resultList(function (result) {
 
             append(result);
-            setVoteCounterInHeader(jacketCat);
+            setVoteCounterInHeader(jacketCat, competitionId);
             voteEvent();
         });
     })
@@ -100,24 +100,24 @@ $("#Jacketsbtn").click(function () {
 
 $("#Specialsbtn").click(function () {
     DB.Category.load("/db/Category/7da19d3c-d04a-434a-872a-b143233bb4a7").then(function (specialCat) {
-        var name = localStorage.getItem("competitionID");
-        DB.Design.find().equal('categoryId', specialCat.id).equal('competitionId', name).resultList(function (result) {
+        var competitionId = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', specialCat.id).equal('competitionId', competitionId).resultList(function (result) {
 
             append(result);
-            setVoteCounterInHeader(specialCat);
+            setVoteCounterInHeader(specialCat, competitionId);
             voteEvent();
         });
     })
 });
 
-//öffnet zu Beginn die Katekorie Shirts
+//öffnet zu Beginn die Kategorie Shirts
 DB.ready(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
-        var name = localStorage.getItem("competitionID");
-        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', name).resultList(function (result) {
+        var competitionId = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', competitionId).resultList(function (result) {
 
             append(result);
-            setVoteCounterInHeader(shirtCat);
+            setVoteCounterInHeader(shirtCat, competitionId);
             voteEvent();
             goToDetail();
 
@@ -165,7 +165,7 @@ function isAlreadyVoted(designId, heartId) {
 
                     if (cat.name === "Shirts")
                     {
-                        if (competitionSelector(design))
+                        if (isPttpCompetition(design.competitionId))
                         {
                             markAsVoted(DB.User.me.votedPttpShirts, design, heartId);
                         }
@@ -176,7 +176,7 @@ function isAlreadyVoted(designId, heartId) {
                     }
                     else if (cat.name === "Pullover")
                     {
-                        if (competitionSelector(design))
+                        if (isPttpCompetition(design.competitionId))
                         {
                             markAsVoted(DB.User.me.votedPttpPullover, design, heartId);
                         }
@@ -187,7 +187,7 @@ function isAlreadyVoted(designId, heartId) {
                     }
                     else if (cat.name === "Jackets")
                     {
-                        if (competitionSelector(design))
+                        if (isPttpCompetition(design.competitionId))
                         {
                             markAsVoted(DB.User.me.votedPttpJackets, design, heartId);
                         }
@@ -198,7 +198,7 @@ function isAlreadyVoted(designId, heartId) {
                     }
                     else if (cat.name === "Specials")
                     {
-                        if (competitionSelector(design))
+                        if (isPttpCompetition(design.competitionId))
                         {
                             markAsVoted(DB.User.me.votedPttpSpecials, design, heartId);
                         }
@@ -215,18 +215,6 @@ function isAlreadyVoted(designId, heartId) {
     else
     {
         return;
-    }
-}
-
-function competitionSelector(design) {
-    var compId = design.competitionId;
-    if (compId == "/db/Competition/4cb12309-8ffd-47a7-bab4-59b5fd4decd2")
-    {
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }
 
@@ -261,7 +249,7 @@ function voteEvent() {
                     DB.User.me.load({depth: 1}).then(function () {
                         if (cat.name === "Shirts")
                         {
-                            if (competitionSelector(design))
+                            if (isPttpCompetition(design.competitionId))
                             {
                                 voteInTheCategory(cat, design, DB.User.me.votedPttpShirts, iconId);
                             }
@@ -272,7 +260,7 @@ function voteEvent() {
                         }
                         else if (cat.name === "Jackets")
                         {
-                            if (competitionSelector(design))
+                            if (isPttpCompetition(design.competitionId))
                             {
                                 voteInTheCategory(cat, design, DB.User.me.votedPttpJackets, iconId);
                             }
@@ -283,7 +271,7 @@ function voteEvent() {
                         }
                         else if (cat.name === "Pullover")
                         {
-                            if (competitionSelector(design))
+                            if (isPttpCompetition(design.competitionId))
                             {
                                 voteInTheCategory(cat, design, DB.User.me.votedPttpPullover, iconId);
                             }
@@ -294,7 +282,7 @@ function voteEvent() {
                         }
                         else if (cat.name === "Specials")
                         {
-                            if (competitionSelector(design))
+                            if (isPttpCompetition(design.competitionId))
                             {
                                 voteInTheCategory(cat, design, DB.User.me.votedPttpSpecials, iconId);
                             }
@@ -312,6 +300,17 @@ function voteEvent() {
             alert("You have to be logged in.");
         }
     });
+}
+
+function isPttpCompetition(competitionId) {
+    if (competitionId == "/db/Competition/4cb12309-8ffd-47a7-bab4-59b5fd4decd2")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function voteInTheCategory(category, design, listOfVoted, iconId) {
@@ -358,7 +357,7 @@ function onUpdateSuccess(design, list, iconId, category) {
     list.push(design);
     DB.User.me.save().then(function () {
         markVoted(iconId);
-        setVoteCounterInHeader(category);
+        setVoteCounterInHeader(category, design.competitionId);
         console.log("User updated: vote saved");
     }).catch(function () {
         console.log("User is not updated: vote is not saved")
@@ -369,14 +368,14 @@ function onUpdateSuccess(design, list, iconId, category) {
 function onUpdateDenied(design) {
     design.voteCounter = design.voteCounter - 1;
     console.log("Design update denied");
-}8
+}
 
 function onUpdateUnvoteSuccess(design, list, iconId, category) {
     var index = list.indexOf(design);
     list.splice(index, 1);
     DB.User.me.save().then(function () {
         markUnvoted(iconId);
-        setVoteCounterInHeader(category);
+        setVoteCounterInHeader(category, design.competitionId);
         console.log("User updated: vote deleted");
     }).catch(function () {
         console.log("User is not updated: vote is not deleted")
@@ -397,26 +396,55 @@ function goToDetail() {
     })
 }
 
-function setVoteCounterInHeader(category){
+function setVoteCounterInHeader(category, competitionId) {
     if (DB.User.me !== null)
     {
         DB.User.me.load({depth: 1}).then(function () {
 
             if (category.name === "Shirts")
             {
-                $("#votes").text(DB.User.me.votedShirts.length + "/" + category.voteLimitPerPerson);
+                if (isPttpCompetition(competitionId))
+                {
+                    $("#votes").text(DB.User.me.votedPttpShirts.length + "/" + category.voteLimitPerPerson);
+                }
+                else
+                {
+                    $("#votes").text(DB.User.me.votedShirts.length + "/" + category.voteLimitPerPerson);
+                }
+
             }
             else if (category.name === "Pullover")
             {
-                $("#votes").text(DB.User.me.votedPullover.length + "/" + category.voteLimitPerPerson);
+                if (isPttpCompetition(competitionId))
+                {
+                    $("#votes").text(DB.User.me.votedPttpPullover.length + "/" + category.voteLimitPerPerson);
+                }
+                else
+                {
+                    $("#votes").text(DB.User.me.votedPullover.length + "/" + category.voteLimitPerPerson);
+                }
             }
             else if (category.name === "Jackets")
             {
-                $("#votes").text(DB.User.me.votedJackets.length + "/" + category.voteLimitPerPerson);
+                if (isPttpCompetition(competitionId))
+                {
+                    $("#votes").text(DB.User.me.votedPttpJackets.length + "/" + category.voteLimitPerPerson);
+                }
+                else
+                {
+                    $("#votes").text(DB.User.me.votedJackets.length + "/" + category.voteLimitPerPerson);
+                }
             }
             else if (category.name === "Specials")
             {
-                $("#votes").text(DB.User.me.votedSpecials.length + "/" + category.voteLimitPerPerson);
+                if (isPttpCompetition(competitionId))
+                {
+                    $("#votes").text(DB.User.me.votedPttpSpecials.length + "/" + category.voteLimitPerPerson);
+                }
+                else
+                {
+                    $("#votes").text(DB.User.me.votedSpecials.length + "/" + category.voteLimitPerPerson);
+                }
             }
         });
     }
