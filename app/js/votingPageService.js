@@ -68,7 +68,9 @@ $("#Shirtsbtn").click(function () {
         DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
+            setVoteCounterInHeader(shirtCat);
             voteEvent();
+
         });
     })
 });
@@ -78,6 +80,7 @@ $("#Pulloverbtn").click(function () {
         DB.Design.find().equal('categoryId', pulloverCat.id).resultList(function (result) {
 
             append(result);
+            setVoteCounterInHeader(pulloverCat);
             voteEvent();
         });
     })
@@ -88,6 +91,7 @@ $("#Jacketsbtn").click(function () {
         DB.Design.find().equal('categoryId', jacketCat.id).resultList(function (result) {
 
             append(result);
+            setVoteCounterInHeader(jacketCat);
             voteEvent();
         });
     })
@@ -98,6 +102,7 @@ $("#Specialsbtn").click(function () {
         DB.Design.find().equal('categoryId', specialCat.id).resultList(function (result) {
 
             append(result);
+            setVoteCounterInHeader(specialCat);
             voteEvent();
         });
     })
@@ -108,8 +113,10 @@ DB.ready(function () {
         DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
+            setVoteCounterInHeader(shirtCat);
             voteEvent();
             goToDetail();
+
         });
     });
 });
@@ -237,7 +244,7 @@ function voteInTheCategory(category, design, listOfVoted, iconId) {
     {
         if (listOfVoted.length < category.voteLimitPerPerson)
         {
-            vote(design, listOfVoted, iconId);
+            vote(design, listOfVoted, iconId, category);
         }
         else
         {
@@ -248,33 +255,34 @@ function voteInTheCategory(category, design, listOfVoted, iconId) {
     {
         if (listOfVoted.length > 0 && design.voteCounter > 0)
         {
-            unvote(design, listOfVoted, iconId);
+            unvote(design, listOfVoted, iconId, category);
         }
     }
 }
 
-function vote(design, list, iconId) {
+function vote(design, list, iconId, category) {
     design.voteCounter = design.voteCounter + 1;
     design.update().then(function () {
-        onUpdateSuccess(design, list, iconId);
+        onUpdateSuccess(design, list, iconId, category);
     }).catch(function () {
         onUpdateDenied(design);
     });
 }
 
-function unvote(design, list, iconId) {
+function unvote(design, list, iconId, category) {
     design.voteCounter = design.voteCounter - 1;
     design.update().then(function () {
-        onUpdateUnvoteSuccess(design, list, iconId);
+        onUpdateUnvoteSuccess(design, list, iconId, category);
     }).catch(function () {
         onUpdateUnvoteDenied(design);
     });
 }
 
-function onUpdateSuccess(design, list, iconId) {
+function onUpdateSuccess(design, list, iconId, category) {
     list.push(design);
     DB.User.me.save().then(function () {
         markVoted(iconId);
+        setVoteCounterInHeader(category);
         console.log("User updated: vote saved");
     }).catch(function () {
         console.log("User is not updated: vote is not saved")
@@ -285,13 +293,14 @@ function onUpdateSuccess(design, list, iconId) {
 function onUpdateDenied(design) {
     design.voteCounter = design.voteCounter - 1;
     console.log("Design update denied");
-}
+}8
 
-function onUpdateUnvoteSuccess(design, list, iconId) {
+function onUpdateUnvoteSuccess(design, list, iconId, category) {
     var index = list.indexOf(design);
     list.splice(index, 1);
     DB.User.me.save().then(function () {
         markUnvoted(iconId);
+        setVoteCounterInHeader(category);
         console.log("User updated: vote deleted");
     }).catch(function () {
         console.log("User is not updated: vote is not deleted")
@@ -312,6 +321,30 @@ function goToDetail() {
     })
 }
 
+function setVoteCounterInHeader(category){
+    if (DB.User.me !== null)
+    {
+        DB.User.me.load({depth: 1}).then(function () {
+
+            if (category.name === "Shirts")
+            {
+                $("#votes").text(DB.User.me.votedShirts.length + "/" + category.voteLimitPerPerson);
+            }
+            else if (category.name === "Pullover")
+            {
+                $("#votes").text(DB.User.me.votedPullover.length + "/" + category.voteLimitPerPerson);
+            }
+            else if (category.name === "Jackets")
+            {
+                $("#votes").text(DB.User.me.votedJackets.length + "/" + category.voteLimitPerPerson);
+            }
+            else if (category.name === "Specials")
+            {
+                $("#votes").text(DB.User.me.votedSpecials.length + "/" + category.voteLimitPerPerson);
+            }
+        });
+    }
+}
 
 
 
