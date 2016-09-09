@@ -2,6 +2,7 @@
  * Created by Frank on 31.08.16.
  */
 
+var idcompetition;
 
 function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
@@ -65,7 +66,11 @@ newClock();
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
-        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
+     //   var name = localStorage.getItem("competitionName");
+    //    DB.Competition.find().equal('ideaFrom', name).singleResult(function (result) {
+       //     idcompetition = result.id;
+    //    });
+        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {  //equal('competitionId', idcompetition).resultList(function (result) {
 
             append(result);
             voteEvent();
