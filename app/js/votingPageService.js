@@ -61,15 +61,14 @@ function newClock() {
     }
 }
 
-    newClock();
-
-
+newClock();
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
         DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
+            voteEvent();
         });
     })
 });
@@ -79,6 +78,7 @@ $("#Pulloverbtn").click(function () {
         DB.Design.find().equal('categoryId', pulloverCat.id).resultList(function (result) {
 
             append(result);
+            voteEvent();
         });
     })
 });
@@ -88,6 +88,7 @@ $("#Jacketsbtn").click(function () {
         DB.Design.find().equal('categoryId', jacketCat.id).resultList(function (result) {
 
             append(result);
+            voteEvent();
         });
     })
 });
@@ -97,6 +98,7 @@ $("#Specialsbtn").click(function () {
         DB.Design.find().equal('categoryId', specialCat.id).resultList(function (result) {
 
             append(result);
+            voteEvent();
         });
     })
 });
@@ -106,40 +108,91 @@ DB.ready(function () {
         DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
 
             append(result);
-            goToDetail();
             voteEvent();
+            goToDetail();
         });
     });
 });
 
+/*
+Erstellt beim Aufruf der votingPage Seite dynamisch die Designs Ansicht indem er sich die Notwendigen Daten aus der Datenbank
+lädt und einbindet.
+ */
 function append(result) {
 
     $('#voting-gallery-container').empty();
-    var btnId = 0;
-
+    var heartId = 200;
     result.forEach(function (design) {
 
         var bildUrl = design.gallery[0];
         var designId = design.id;
 
         $('#voting-gallery-container')
-            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive voteEvent-item' id='" +
-                    designId +
-                    "' a>" +
+            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive voteEvent-item'" +
+                    " id='" + designId + "' a>" +
                     "<img class='imgScaling' src='" + bildUrl +
                     "'></a> " +
-                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align' id='" + btnId +
-                    "'>" +
-                    "<span class='glyphicon glyphicon-heart-empty'></span> Vote " +
+                    "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align'>" +
+                    "<span class='glyphicon glyphicon-heart-empty' id='" + heartId + "'></span> Vote " +
                     "</button>" +
                     "<button type='button' class='btnzoom' aria-lable='Right Align'>" +
                     "<a href='" + bildUrl + "' data-lightbox='TestBild'>" +
                     "<span class='glyphicon glyphicon-zoom-in'></span> Zoom in" +
                     "</a></button></div></div>");
-
-        btnId++;
-
+        isAlreadyVoted(designId, heartId);
+        heartId++;
     });
+}
+
+function isAlreadyVoted(designId, heartId) {
+
+    if (DB.User.me !== null)
+    {
+        DB.Design.load(designId, {depth: 1}).then(function (design) {
+            DB.Category.find().equal("id", design.categoryId).singleResult(function (cat) {
+                DB.User.me.load({depth: 1}).then(function () {
+
+                    if (cat.name === "Shirts")
+                    {
+                        markAsVoted(DB.User.me.votedShirts, design, heartId);
+                    }
+                    else if (cat.name === "Pullover")
+                    {
+                        markAsVoted(DB.User.me.votedPullover, design, heartId);
+                    }
+                    else if (cat.name === "Jackets")
+                    {
+                        markAsVoted(DB.User.me.votedJackets, design, heartId);
+                    }
+                    else if (cat.name === "Specials")
+                    {
+                        markAsVoted(DB.User.me.votedSpecials, design, heartId);
+                    }
+
+                });
+            });
+        })
+    }
+    else
+    {
+        return;
+    }
+}
+
+function markAsVoted(list, design, heartId) {
+
+    if (list.indexOf(design) >= 0)
+    {
+        markVoted(heartId);
+    }
+}
+
+function markVoted(iconId) {
+    $("#" + iconId).attr("class", "glyphicon glyphicon-heart").css("color", "#cb1529");
+}
+
+function markUnvoted(iconId) {
+    $("#" + iconId).attr("class", "glyphicon glyphicon-heart-empty").css("color", "black");
 }
 
 $("#1234").text(localStorage.getItem("competitionName"));
@@ -150,47 +203,29 @@ function voteEvent() {
         if (DB.User.me !== null)
         {
             var designId = $(this).parent().parent().attr("id");
+            var iconId = $(this).children("span").attr("id");
 
-            DB.Design.load(designId).then(function (design) {
+            DB.Design.load(designId, {depth: 1}).then(function (design) {
                 DB.Category.find().equal("id", design.categoryId).singleResult(function (cat) {
-                    if (cat.name === "Shirts")
-                    {
-                        if (DB.User.me.votedShirts === null)
+                    DB.User.me.load({depth: 1}).then(function () {
+                        if (cat.name === "Shirts")
                         {
-                            DB.User.me.votedShirts = new Array();
+                            voteInTheCategory(cat, design, DB.User.me.votedShirts, iconId);
                         }
-
-                        if (DB.User.me.votedShirts.indexOf(design) === -1)
+                        else if (cat.name === "Jackets")
                         {
-                            if (DB.User.me.votedShirts.length < cat.voteLimitPerPerson)
-                            {
-                                vote(design, DB.User.me.votedShirts);
-                            }
-                            else
-                            {
-                                alert("You have reached the maximum amount of votes in this category.");
-                            }
+                            voteInTheCategory(cat, design, DB.User.me.votedJackets, iconId);
                         }
-                        else
+                        else if (cat.name === "Pullover")
                         {
-                            unvote(design, DB.User.me.votedShirts);
+                            voteInTheCategory(cat, design, DB.User.me.votedPullover, iconId);
                         }
-
-                    }
-                    else if (category.name === "Jackets")
-                    {
-                        localJacketCounter++;
-                    }
-                    else if (category.name === "Pullover")
-                    {
-                        localPulloverCounter++;
-                    }
-                    else if (category.name === "Specials")
-                    {
-                        localSpecialCounter++;
-                    }
+                        else if (cat.name === "Specials")
+                        {
+                            voteInTheCategory(cat, design, DB.User.me.votedSpecials, iconId);
+                        }
+                    });
                 });
-
             });
         }
         else
@@ -200,29 +235,55 @@ function voteEvent() {
     });
 }
 
-function vote(design, list) {
+function voteInTheCategory(category, design, listOfVoted, iconId) {
+
+    if (listOfVoted.indexOf(design) === -1)
+    {
+        if (listOfVoted.length < category.voteLimitPerPerson)
+        {
+            vote(design, listOfVoted, iconId);
+        }
+        else
+        {
+            alert("You have reached the maximum amount of votes in this category.");
+        }
+    }
+    else
+    {
+        if (listOfVoted.length > 0 && design.voteCounter > 0)
+        {
+            unvote(design, listOfVoted, iconId);
+        }
+    }
+}
+
+function vote(design, list, iconId) {
     design.voteCounter = design.voteCounter + 1;
     design.update().then(function () {
-        onUpdateSuccess(design, list);
+        onUpdateSuccess(design, list, iconId);
     }).catch(function () {
         onUpdateDenied(design);
     });
 }
 
-function unvote(design, list) {
+function unvote(design, list, iconId) {
     design.voteCounter = design.voteCounter - 1;
     design.update().then(function () {
-        onUpdateUnvoteSuccess(design, list);
+        onUpdateUnvoteSuccess(design, list, iconId);
     }).catch(function () {
         onUpdateUnvoteDenied(design);
     });
-
 }
 
-function onUpdateSuccess(design, list) {
-    console.log("Design update success: " + design.voteCounter);
+function onUpdateSuccess(design, list, iconId) {
     list.push(design);
-    DB.User.me.save();
+    DB.User.me.save().then(function () {
+        markVoted(iconId);
+        console.log("User updated: vote saved");
+    }).catch(function () {
+        console.log("User is not updated: vote is not saved")
+    });
+    console.log("Design update success: " + "List contains " + list);
 }
 
 function onUpdateDenied(design) {
@@ -230,16 +291,23 @@ function onUpdateDenied(design) {
     console.log("Design update denied");
 }
 
-function onUpdateUnvoteSuccess(design, list) {
-    console.log("Design unvote success: " + design.voteCounter);
-    list.pop(design);
-    DB.User.me.save();
+function onUpdateUnvoteSuccess(design, list, iconId) {
+    var index = list.indexOf(design);
+    list.splice(index, 1);
+    DB.User.me.save().then(function () {
+        markUnvoted(iconId);
+        console.log("User updated: vote deleted");
+    }).catch(function () {
+        console.log("User is not updated: vote is not deleted")
+    });
+    console.log("Unvoting success: " + "List contains: " + list);
 }
 
 function onUpdateUnvoteDenied(design) {
     design.voteCounter = design.voteCounter + 1;
-    console.log("Design unvote denied");
+    console.log("Unvoting denied");
 }
+
 function goToDetail() {
     $("#voting-gallery-container").on("click", "img.imgScaling", function () {
         var designId = $(this).parent().attr("id");
