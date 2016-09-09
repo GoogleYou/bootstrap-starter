@@ -1,5 +1,7 @@
 /**
  * Created by Veronika on 02/09/16.
+ *
+ * Noch nicht Implementiert
  */
 
 $(document).ready(function () {

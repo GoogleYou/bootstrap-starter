@@ -13,7 +13,8 @@ $(document).ready(function () {
 
         loginUser(email, pass);
     });
-
+    // Wird das Submit-Event auf der Sign Up Seite ausgelöst, so werden alle Inputwerte in Variablen gespeichert, die passwörter überprüft
+    // und die registerUser Methode mit den, in den Variablen gespeicherten, Werte aufgerufen.
     $("#signUpForm").submit(function (e) {
 
         e.preventDefault();
@@ -37,14 +38,14 @@ $(document).ready(function () {
             alert("Password does not match.");
         }
     });
-
+    //Automatischer Log In via Facebook Button
     $("#facebookBtn").click(function () {
         DB.User.loginWithFacebook("1738196716420350").then(function (user) {
             console.log(DB.User.me == user);
             window.location.replace("index.html");
         });
     });
-
+// Wird der LogOut Button.
     $("#logOut").click(function () {
         if (DB.User.me !== null)
         {
@@ -56,6 +57,9 @@ $(document).ready(function () {
 
 });
 
+/*
+Nimmt alle notwendigen Parameter zur Erstellung eines Users entgegen und übergibt diese an die Datenbank.
+ */
 function registerUser(pass, firstName, lastName, address, zipCode, city, country, email) {
 
     var user = new DB.User({
@@ -74,7 +78,10 @@ function registerUser(pass, firstName, lastName, address, zipCode, city, country
     });
 
 }
-
+/*
+Übergabe von Email und Passwort an eine auf Baqendseite liegenden verifikation der Log In Daten.
+Bei inkorekter Eingabe wird eine Fehlermeldung ausgegeben.
+ */
 function loginUser(email, pass) {
     DB.User.login(email, pass).then(function (user) {
         window.location.replace("index.html");
@@ -84,6 +91,11 @@ function loginUser(email, pass) {
     });
 }
 
+/*
+Überprüft ob ein User schon eingeloggt ist.
+Ist dem so, so wird der Log In und Sign Up Button für den User versteckt und der Username sowie der Log Out Button angezeigt. Der Username wird durch die Email-Addresse dargestellt.
+Sei dem nicht so, so wird weder der Username, noch ein Log Out Button dargestellt.
+ */
 function isLoggedIn() {
     if (DB.User.me !== null)
     {
@@ -91,8 +103,8 @@ function isLoggedIn() {
         var hrefTag = "<a id='userHref' href='#'>" + username + "</a>";
         var userLink = "../" + username + ".html";
 
-        $("#b1").hide();
-        $("#b2").hide();
+        $("#logIn_header").hide(); //Log In Button
+        $("#signOut_header").hide(); //Sign Up Button
         $("#username_header").html(hrefTag);
         $("#userHref").attr({'href': userLink});
     }

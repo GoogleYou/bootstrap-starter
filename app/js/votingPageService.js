@@ -114,6 +114,10 @@ DB.ready(function () {
     });
 });
 
+/*
+Erstellt beim Aufruf der votingPage Seite dynamisch die Designs Ansicht indem er sich die Notwendigen Daten aus der Datenbank
+lädt und einbindet.
+ */
 function append(result) {
 
     $('#voting-gallery-container').empty();
