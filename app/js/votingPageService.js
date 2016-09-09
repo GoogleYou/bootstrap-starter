@@ -2,7 +2,6 @@
  * Created by Frank on 31.08.16.
  */
 
-var idcompetition;
 
 function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
@@ -66,12 +65,8 @@ newClock();
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
-     //   var name = localStorage.getItem("competitionName");
-    //    DB.Competition.find().equal('ideaFrom', name).singleResult(function (result) {
-       //     idcompetition = result.id;
-    //    });
-        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {  //equal('competitionId', idcompetition).resultList(function (result) {
-
+       var name = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', name).resultList(function (result) {
             append(result);
             voteEvent();
         });
@@ -80,8 +75,8 @@ $("#Shirtsbtn").click(function () {
 
 $("#Pulloverbtn").click(function () {
     DB.Category.load("/db/Category/6cb24498-abf5-4c11-a80a-9278e5c7c563").then(function (pulloverCat) {
-        DB.Design.find().equal('categoryId', pulloverCat.id).resultList(function (result) {
-
+        var name = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', pulloverCat.id).equal('competitionId', name).resultList(function (result) {
             append(result);
             voteEvent();
         });
@@ -90,7 +85,8 @@ $("#Pulloverbtn").click(function () {
 
 $("#Jacketsbtn").click(function () {
     DB.Category.load("/db/Category/659edcb3-3b65-4796-a4a6-575e5e3fdc2a").then(function (jacketCat) {
-        DB.Design.find().equal('categoryId', jacketCat.id).resultList(function (result) {
+        var name = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', jacketCat.id).equal('competitionId', name).resultList(function (result) {
 
             append(result);
             voteEvent();
@@ -100,7 +96,8 @@ $("#Jacketsbtn").click(function () {
 
 $("#Specialsbtn").click(function () {
     DB.Category.load("/db/Category/7da19d3c-d04a-434a-872a-b143233bb4a7").then(function (specialCat) {
-        DB.Design.find().equal('categoryId', specialCat.id).resultList(function (result) {
+        var name = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', specialCat.id).equal('competitionId', name).resultList(function (result) {
 
             append(result);
             voteEvent();
@@ -108,9 +105,11 @@ $("#Specialsbtn").click(function () {
     })
 });
 
+//öffnet zu Beginn die Katekorie Shirts
 DB.ready(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
-        DB.Design.find().equal('categoryId', shirtCat.id).resultList(function (result) {
+        var name = localStorage.getItem("competitionID");
+        DB.Design.find().equal('categoryId', shirtCat.id).equal('competitionId', name).resultList(function (result) {
 
             append(result);
             voteEvent();
