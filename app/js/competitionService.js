@@ -16,11 +16,13 @@ $(document).ready(function () {
 
 $("#PTTP").click(function () {
     localStorage.setItem("competitionName", "PTTP Competition");
+    localStorage.setItem("competitionID", "/db/Competition/4cb12309-8ffd-47a7-bab4-59b5fd4decd2");
 
 });
 
 $("#CC").click(function () {
     localStorage.setItem("competitionName", "Community Competition");
+    localStorage.setItem("competitionID", "/db/Competition/c442ceda-68b2-4a97-a200-38140b294fdb");
 });
 
 function changeImages(image) {
