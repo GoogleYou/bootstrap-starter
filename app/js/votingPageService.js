@@ -61,9 +61,7 @@ function newClock() {
     }
 }
 
-    newClock();
-
-
+newClock();
 
 $("#Shirtsbtn").click(function () {
     DB.Category.load("/db/Category/3e094e76-9ce7-4834-b0a0-4d1ca248a425").then(function (shirtCat) {
@@ -126,9 +124,8 @@ function append(result) {
         var designId = design.id;
 
         $('#voting-gallery-container')
-            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive voteEvent-item' id='" +
-                    designId +
-                    "' a>" +
+            .append("<div class='col-xs-4 col-sm-4 col-md-3 col-lg-3'><div class='img-thumbnail img-responsive voteEvent-item'" +
+                    " id='" + designId + "' a>" +
                     "<img class='imgScaling' src='" + bildUrl +
                     "'></a> " +
                     "<div class='desc'><button type='button' class='btnvote' aria-label='Left Align'>" +
@@ -147,8 +144,8 @@ function isAlreadyVoted(designId, heartId) {
 
     if (DB.User.me !== null)
     {
-        DB.Design.load(designId).then(function (design) {
-            DB.Category.load(design.categoryId).then(function (cat) {
+        DB.Design.load(designId, {depth: 1}).then(function (design) {
+            DB.Category.find().equal("id", design.categoryId).singleResult(function (cat) {
                 DB.User.me.load({depth: 1}).then(function () {
 
                     if (cat.name === "Shirts")
@@ -179,16 +176,10 @@ function isAlreadyVoted(designId, heartId) {
 }
 
 function markAsVoted(list, design, heartId) {
-    if (list.length > 0)
+
+    if (list.indexOf(design) >= 0)
     {
-        if (list.indexOf(design) >= 0)
-        {
-            $("#" + heartId).attr("class", "glyphicon glyphicon-heart").css("color", "#cb1529");
-        }
-        else
-        {
-            $("#" + heartId).attr("class", "glyphicon glyphicon-heart-empty").css("color", "black");
-        }
+        markVoted(heartId);
     }
 }
 
@@ -286,9 +277,9 @@ function onUpdateSuccess(design, list, iconId) {
         markVoted(iconId);
         console.log("User updated: vote saved");
     }).catch(function () {
-       console.log("User is not updated: vote is not saved")
+        console.log("User is not updated: vote is not saved")
     });
-    console.log("Design update success: " +"List contains " + list);
+    console.log("Design update success: " + "List contains " + list);
 }
 
 function onUpdateDenied(design) {
